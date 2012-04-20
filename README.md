@@ -24,5 +24,6 @@ Unobtrusively(!)...
 
 ### Utility features
 
+- test extension within app `inprogress`
 - run app/engine specs together `inprogress`
 - generator to create new extension with everything set up
