@@ -1,6 +1,6 @@
 # Chili
 
-TODO: Write a gem description
+The spicy extension framework
 
 ## Installation
 
@@ -8,22 +8,21 @@ Add this line to your application's Gemfile:
 
     gem 'chili'
 
-And then execute:
+## Roadmap
 
-    $ bundle
+### Core features
 
-Or install it yourself as:
+Unobtrusively(!)...
 
-    $ gem install chili
+- add new models `done`
+- add new tables/migrations `done`
+- add new controllers and show/hide conditionally `done`
+- add new views and show/hide conditionally `done`
+- conditionally add to/edit existing views `done`
+- add methods to existing models
+- modify existing controller actions
 
-## Usage
+### Utility features
 
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+- run app/engine specs together `inprogress`
+- generator to create new extension with everything set up
