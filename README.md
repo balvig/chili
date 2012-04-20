@@ -26,4 +26,19 @@ Unobtrusively(!)...
 
 - test extension within app `inprogress`
 - run app/engine specs together `inprogress`
-- generator to create new extension with everything set up
+- more ruby-like way of specifying conditions (block etc)
+- generator template to create new extension with everything set up
+    - remove application controller
+    - have all new controller inherit from Chili::ApplicationController
+    - add conditions to main file
+    - add overrides directory
+    - set dummy path to spec
+    - modify spec_helper
+    - add rspec stuff to engine.rb
+    - add submodule/symlink to real app
+    - automount routes in routes.rb
+
+### Obstacles
+
+- 2 Gemfiles: One for the engine, one for the app. `inprogress`
+- Deface caches overrides in production. Monkey patch?
