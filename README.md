@@ -36,6 +36,8 @@ Unobtrusively(!)...
     - modify spec_helper
     - add rspec stuff to engine.rb
     - add submodule/symlink to real app
+    - remove Gemfile, Gemfile.lock
+    - set up Rakefile
     - automount routes in routes.rb
 
 ### Obstacles
