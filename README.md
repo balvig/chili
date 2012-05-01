@@ -19,7 +19,7 @@ Unobtrusively(!)...
 - add new controllers and show/hide conditionally `done`
 - add new views and show/hide conditionally `done`
 - conditionally add to/edit existing views `done`
-- add methods to existing models
+- add methods to existing models `inprogress`
 - modify existing controller actions
 
 ### Utility features
