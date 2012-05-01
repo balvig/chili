@@ -42,5 +42,6 @@ Unobtrusively(!)...
 
 ### Obstacles
 
-- 2 Gemfiles: One for the engine, one for the app. `inprogress`
+- 2 Gemfiles: One for the engine, one for the app. `done`
 - Deface caches overrides in production. Monkey patch?
+- Can only have one override per engine per partial due to the way I'm grabbing the class from the override
