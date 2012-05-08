@@ -8,7 +8,7 @@ module Chili
     module InstanceMethods
       def activate_overrides
         Deface::Override.all.each do |o|
-          extension_name = o.second.keys.first.classify
+          extension_name = o.second.keys.first.camelcase
           conditions = extension_name.constantize.conditions
           override = o.second.first.second
           override.args[:disabled] = !eval(conditions)

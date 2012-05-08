@@ -47,7 +47,7 @@ task default: 'app:spec'
 RUBY
 end
 
-inject_into_file "lib/#{app_path}/engine.rb", :after => "isolate_namespace #{app_path.classify}\n" do <<-RUBY
+inject_into_file "lib/#{app_path}/engine.rb", :after => "isolate_namespace #{app_path.camelcase}\n" do <<-RUBY
     config.generators do |g|
       g.test_framework :rspec, view_specs: false
       g.integration_tool :rspec
@@ -60,7 +60,7 @@ append_to_file 'config/routes.rb' do <<-RUBY
 
 # Automount engine
 Rails.application.routes.draw do
-  mount #{app_path.classify}::Engine => "/#{app_path}"
+  mount #{app_path.camelcase}::Engine => "/#{app_path}"
 end
 RUBY
 end
