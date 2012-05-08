@@ -1,6 +1,10 @@
 # Uses Chili::ApplicationController and the layout from the main app
 remove_dir 'app/controllers'
+empty_directory 'app/controllers'
 remove_dir 'app/views/layouts'
+
+# Add directory for deface overrides
+empty_directory 'app/overrides'
 
 # Uses Gemfile from main app
 remove_file 'Gemfile'
