@@ -29,14 +29,14 @@ Unobtrusively(!)...
 - more ruby-like way of specifying conditions (block etc)
 - generator template to create new extension with everything set up
     - remove application controller `done`
-    - add conditions to main file
     - add overrides directory `done`
     - modify spec_helper `done`
-    - set up Rakefile    
-    - add rspec stuff to engine.rb
-    - automount routes in routes.rb
+    - set up Rakefile `done`
+    - automount routes in routes.rb `done`
+    - add rspec stuff to engine.rb `done`
     - remove Gemfile, Gemfile.lock `done`
-    - add submodule/symlink to real app
+    - add submodule/symlink to real app `done`
+    - add conditions to main file
     - have all new controller inherit from Chili::ApplicationController
 
 ### Obstacles
