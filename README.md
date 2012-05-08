@@ -28,17 +28,16 @@ Unobtrusively(!)...
 - run app/engine specs together `inprogress`
 - more ruby-like way of specifying conditions (block etc)
 - generator template to create new extension with everything set up
-    - remove application controller
-    - have all new controller inherit from Chili::ApplicationController
+    - remove application controller `done`
     - add conditions to main file
-    - add overrides directory
-    - set dummy path to spec
-    - modify spec_helper
+    - add overrides directory `done`
+    - modify spec_helper `done`
+    - set up Rakefile    
     - add rspec stuff to engine.rb
-    - add submodule/symlink to real app
-    - remove Gemfile, Gemfile.lock
-    - set up Rakefile
     - automount routes in routes.rb
+    - remove Gemfile, Gemfile.lock `done`
+    - add submodule/symlink to real app
+    - have all new controller inherit from Chili::ApplicationController
 
 ### Obstacles
 
