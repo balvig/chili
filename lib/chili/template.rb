@@ -82,3 +82,6 @@ create_file "app/overrides/layouts/application/#{app_path}.html.erb.deface" do <
 <div style='background: #FFF;text-align: center; padding: 4px 0;position: fixed;width: 100%;z-index: 9999;top: 0;'>#{app_path} activated - <%= link_to 'deface docs', 'https://github.com/railsdog/deface', target: '_blank' %></div>
 RUBY
 end
+
+# Disable bundler
+def run_bundle ; end
