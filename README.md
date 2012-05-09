@@ -26,7 +26,7 @@ Unobtrusively(!)...
 
 - test extension within app `inprogress`
 - run app/engine specs together `inprogress`
-- more ruby-like way of specifying conditions (block etc)
+- more ruby-like way of specifying conditions (block etc) `done`
 - generator template to create new extension with everything set up
     - remove application controller `done`
     - add overrides directory `done`
@@ -36,7 +36,7 @@ Unobtrusively(!)...
     - add rspec stuff to engine.rb `done`
     - remove Gemfile, Gemfile.lock `done`
     - add submodule/symlink to real app `done`
-    - add conditions to main file
+    - add active_if to main file
     - have all new controller inherit from Chili::ApplicationController
 
 ### Obstacles

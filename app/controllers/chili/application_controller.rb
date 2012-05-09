@@ -4,7 +4,7 @@ module Chili
 
     private
     def activate_extension
-      raise ActionController::RoutingError, 'Extension Disabled' unless eval(self.class.parent.conditions)
+      raise ActionController::RoutingError, 'Extension Disabled' unless self.class.parent.active?(self)
     end
   end
 end
