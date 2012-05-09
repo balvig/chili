@@ -26,6 +26,7 @@ Unobtrusively(!)...
 
 - test extension within app `inprogress`
 - run app/engine specs together `inprogress`
+    - make request specs understand paths
 - have all new controllers inherit from Chili::ApplicationController
 - documentation
 
