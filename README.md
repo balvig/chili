@@ -37,3 +37,4 @@ Unobtrusively(!)...
 - Can only have one override per engine per partial due to the way I'm grabbing the class from the override
 - Where to get the database.yml file from?
 - Rspec generators don't namespace properly
+- Need to use DSL branch from deface
