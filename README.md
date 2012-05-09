@@ -27,6 +27,7 @@ Unobtrusively(!)...
 - test extension within app `inprogress`
 - run app/engine specs together `inprogress`
 - more ruby-like way of specifying conditions (block etc) `done`
+- documentation
 - generator template to create new extension with everything set up
     - remove application controller `done`
     - add overrides directory `done`
@@ -36,14 +37,15 @@ Unobtrusively(!)...
     - add rspec stuff to engine.rb `done`
     - remove Gemfile, Gemfile.lock `done`
     - add submodule/symlink to real app `done`
-    - add active_if to main file
-    - have all new controller inherit from Chili::ApplicationController
+    - add active_if to main file `done`
+    - add dummy override `done`
+    - have all new controllers inherit from Chili::ApplicationController
 
 ### Obstacles
 
-- 2 Gemfiles: One for the engine, one for the app. `done`
 - Have to add gemspec to main app
-- Documentation
-- Seperate main app from spec folder?
+- Scaffold adds routes both to engine and main routes file
 - Deface caches overrides in production. Monkey patch?
 - Can only have one override per engine per partial due to the way I'm grabbing the class from the override
+- Where to get the database.yml file from?
+- Rspec generators don't namespace properly
