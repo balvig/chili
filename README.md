@@ -25,11 +25,25 @@ Unobtrusively(!)...
 
 - resource route generator adds routes both to engine and main routes file
 - Deface caches overrides in production. Monkey patch?
-- Have to add gemspec to main app
 
 ### Minor niggles
 
 - Can only have one override per engine per partial due to the way I'm grabbing the class from the override
+- Have to add gemspec to main app
 - Where to get the database.yml file from?
 - Rspec generators don't namespace properly
 - Need to use DSL branch from deface
+
+## Docs...
+
+### Creating a new chili extension
+
+    rails plugin new chili_extension_name --mountable -m https://raw.github.com/balvig/chili/master/lib/chili/template.rb
+    
+### Prepare main app
+
+- make sure that shared views (f.ex layouts) uses `main_app.` prefix for routes
+- add `gem 'deface', :git => 'git://github.com/railsdog/deface.git', :branch => 'dsl'` to Gemfile
+- add `gemspec '../'` to Gemfile
+- bundle
+- set up database
