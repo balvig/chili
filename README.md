@@ -2,12 +2,6 @@
 
 The spicy extension framework
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'chili'
-
 ## Roadmap
 
 ### Core features
