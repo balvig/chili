@@ -24,8 +24,6 @@ Unobtrusively(!)...
 
 ### Utility features
 
-- test extension within app `done`
-- have all new controllers inherit from Chili::ApplicationController  `inprogress`
 - make request specs understand paths
 - documentation
 
@@ -41,3 +39,4 @@ Unobtrusively(!)...
 - Can only have one override per engine per partial due to the way I'm grabbing the class from the override
 - Where to get the database.yml file from?
 - Rspec generators don't namespace properly
+- Need to use DSL branch from deface

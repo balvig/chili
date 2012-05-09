@@ -6,6 +6,7 @@ run "cd #{destination_root} && git submodule add #{main_app_git_repo}  main_app"
 
 # Uses Chili::ApplicationController and the layout from the main app
 remove_dir "app/controllers/#{app_path}"
+remove_dir "app/helpers/#{app_path}"
 remove_dir 'app/views/layouts'
 
 # Uses Gemfile from main app
@@ -17,6 +18,14 @@ create_file 'Rakefile' do <<-RUBY
 #!/usr/bin/env rake
 APP_RAKEFILE = File.expand_path("../main_app/Rakefile", __FILE__)
 require 'chili/tasks'
+RUBY
+end
+
+# Setup custom generator
+inject_into_file "lib/#{app_path}/engine.rb", :after => "isolate_namespace #{app_path.camelcase}\n" do <<-RUBY
+    config.generators do |g|
+      g.scaffold_controller :chili
+    end
 RUBY
 end
 
@@ -44,11 +53,9 @@ task default: 'app:spec'
 RUBY
 end
 
-inject_into_file "lib/#{app_path}/engine.rb", :after => "isolate_namespace #{app_path.camelcase}\n" do <<-RUBY
-    config.generators do |g|
+inject_into_file "lib/#{app_path}/engine.rb", :after => " g.scaffold_controller :chili\n" do <<-RUBY
       g.test_framework :rspec, view_specs: false, routing_specs: false, controller_specs: false
       g.integration_tool :rspec
-    end
 RUBY
 end
 
