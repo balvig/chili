@@ -31,7 +31,6 @@ Unobtrusively(!)...
 
 - resource route generator adds routes both to engine and main routes file
 - Deface caches overrides in production. Monkey patch?
-- Need to use DSL branch from deface
 - Have to add gemspec to main app
 
 ### Minor niggles
