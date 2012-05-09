@@ -19,23 +19,25 @@ Unobtrusively(!)...
 - add new controllers and show/hide conditionally `done`
 - add new views and show/hide conditionally `done`
 - conditionally add to/edit existing views `done`
-- add methods to existing models `inprogress`
+- add methods to existing models `done`
 - modify existing controller actions
 
 ### Utility features
 
-- test extension within app `inprogress`
-- run app/engine specs together `inprogress`
-    - make request specs understand paths
-- have all new controllers inherit from Chili::ApplicationController
+- test extension within app `done`
+- have all new controllers inherit from Chili::ApplicationController  `inprogress`
+- make request specs understand paths
 - documentation
 
 ### Obstacles
 
-- Have to add gemspec to main app
-- Scaffold adds routes both to engine and main routes file
+- resource route generator adds routes both to engine and main routes file
 - Deface caches overrides in production. Monkey patch?
+- Need to use DSL branch from deface
+- Have to add gemspec to main app
+
+### Minor niggles
+
 - Can only have one override per engine per partial due to the way I'm grabbing the class from the override
 - Where to get the database.yml file from?
 - Rspec generators don't namespace properly
-- Need to use DSL branch from deface
