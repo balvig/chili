@@ -69,6 +69,14 @@ end
 RUBY
 end
 
+# Include chili libs
+prepend_to_file "lib/#{app_path}.rb" do <<-RUBY
+require "chili"
+RUBY
+end
+
+gsub_file "#{app_path}.gemspec", '# s.add_dependency "jquery-rails"', 's.add_dependency "chili"'
+
 # Include active_if
 inject_into_file "lib/#{app_path}.rb", :after => "module #{app_path.camelcase}\n" do <<-RUBY
   extend Chili::Activatable

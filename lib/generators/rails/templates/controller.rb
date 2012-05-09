@@ -1,6 +1,6 @@
 <% module_namespacing do -%>
 class <%= controller_class_name %>Controller < Chili::ApplicationController
-  
+
   def index
     @<%= plural_table_name %> = <%= orm_class.all(class_name) %>
 

@@ -4,8 +4,8 @@ require File.expand_path('../lib/chili/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Jens Balvig"]
   gem.email         = ["jens@balvig.com"]
-  gem.description   = %q{The spicy extension framework}
-  gem.summary       = %q{The spicy extension framework}
+  gem.description   = %q{The spicy extension framework (work in progress)}
+  gem.summary       = %q{The spicy extension framework (work in progress)}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
