@@ -61,7 +61,8 @@ end
 
 ### Modifying view templates in main app
 
-See [deface docs](https://github.com/railsdog/deface#readme) for details.
+See [deface docs](https://github.com/railsdog/deface#readme) for details. 
+As an example, assuming the main app has a partial at `app/views/posts/_post.html.erb`:
 
 ```erb
 <% # app/overrides/posts/_post/chili_likes.html.erb.deface (folder should mimic main app view path) %>
@@ -78,7 +79,7 @@ and automounted in the main app at `/chili_extension/likes` if active_if is true
 ### Modifying existing models
 
 Create a model with the same name as the one you want to modify: `rails g model User --migration=false` 
-and extend from the original:
+and inherit from the original:
 
 ```ruby
 # app/model/chili_likes/user.rb
