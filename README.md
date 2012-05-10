@@ -36,7 +36,9 @@ Unobtrusively(!)...
 
 ### Creating a new chili extension
 
-    rails plugin new chili_extension_name --mountable -m https://raw.github.com/balvig/chili/master/lib/chili/template.rb
+Assuming you want to add a new extension that adds "like" capabilities to a subset of users:
+
+    rails plugin new chili_likes --mountable -m https://raw.github.com/balvig/chili/master/lib/chili/template.rb
     
 ### Prepare main app
 
@@ -45,3 +47,53 @@ Unobtrusively(!)...
 - add `gemspec path: '../'` to Gemfile
 - bundle
 - set up database
+
+### Setting up activation conditions
+
+Use the active_if block to control whether new controllers/overrides are visible or not. 
+The context of the active_if block is the application controller so you can use any methods available to that.
+
+```ruby
+# lib/chili_likes.rb
+module ChiliLikes
+  extend Chili::Activatable
+  active_if { logged_in? && current_user.admin? } # Extension is only visible to logged in admin users
+end
+```
+
+### Modifying view templates in main app
+
+See [deface docs](https://github.com/railsdog/deface#readme) for details.
+
+```erb
+<% # app/overrides/posts/_post/chili_likes.html.erb.deface (folder should mimic main app view path) %>
+<!-- insert_bottom 'li' -->
+<%= link_to 'Show likes', chili_likes.likes_path %>
+```
+
+### Adding new resources
+
+Use `rails g scaffold Like' as usual when using engines. The new resource will be namespaced to ChiliExtensionName::Post
+and reachable in the main app under /chili_extension/likes IF active_if returns true. All the rules for using 
+[engine-based models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
+
+### Modifying existing models
+
+Create a model with the same name as the one you want to modify `rails g model User --migration=false` 
+and extend from the original:
+
+```ruby
+# app/model/chili_likes/user.rb
+module ChiliLikes
+  class User < ::User
+    has_many :likes
+  end
+end
+```
+
+Access through the namespaced model:
+
+```erb
+<%= ChiliLikes::User.first.likes %>
+<%= current_user.becomes(ChiliLikes::User).likes %>
+```
