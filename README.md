@@ -14,6 +14,7 @@ Unobtrusively(!)...
 - add new views and show/hide conditionally `done`
 - conditionally add to/edit existing views `done`
 - add methods to existing models `done`
+- automatically bring in stylesheets and javascripts
 - modify existing controller actions
 
 ### Obstacles
