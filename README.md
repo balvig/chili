@@ -16,13 +16,9 @@ Unobtrusively(!)...
 - add methods to existing models `done`
 - modify existing controller actions
 
-### Utility features
-
-- make request specs understand paths
-- documentation
-
 ### Obstacles
 
+- make request specs understand paths
 - resource route generator adds routes both to engine and main routes file
 - Deface caches overrides in production. Monkey patch?
 
@@ -33,6 +29,7 @@ Unobtrusively(!)...
 - Where to get the database.yml file from?
 - Rspec generators don't namespace properly
 - Need to use DSL branch from deface
+- Have to restart server when adding overrides
 
 ## Docs...
 
