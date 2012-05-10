@@ -14,7 +14,7 @@ Unobtrusively(!)...
 - add new views and show/hide conditionally `done`
 - conditionally add to/edit existing views `done`
 - add methods to existing models `done`
-- automatically bring in stylesheets and javascripts
+- add new stylesheets and javascripts `done`
 - modify existing controller actions
 
 ### Obstacles
@@ -25,10 +25,8 @@ Unobtrusively(!)...
 
 ### Minor niggles
 
-- Can only have one override per engine per partial due to the way I'm grabbing the class from the override
 - Have to add gemspec to main app
-- Where to get the database.yml file from?
-- Rspec generators don't namespace properly
+- Can only have one override per engine per partial due to the way I'm grabbing the class from the override
 - Need to use DSL branch from deface
 - Have to restart server when adding overrides
 
