@@ -73,13 +73,13 @@ See [deface docs](https://github.com/railsdog/deface#readme) for details.
 
 ### Adding new resources
 
-Use `rails g scaffold Like' as usual when using engines. The new resource will be namespaced to ChiliExtensionName::Post
-and reachable in the main app under /chili_extension/likes IF active_if returns true. All the rules for using 
+Use `rails g scaffold Like` as usual when using engines. The new resource will be namespaced to ChiliLikes::Like
+and automounted in the main app at `/chili_extension/likes` if active_if is true. All the rules for using 
 [engine-based models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
 
 ### Modifying existing models
 
-Create a model with the same name as the one you want to modify `rails g model User --migration=false` 
+Create a model with the same name as the one you want to modify: `rails g model User --migration=false` 
 and extend from the original:
 
 ```ruby
@@ -96,4 +96,15 @@ Access through the namespaced model:
 ```erb
 <%= ChiliLikes::User.first.likes %>
 <%= current_user.becomes(ChiliLikes::User).likes %>
+```
+
+### Adding new stylesheets/javascripts
+
+Add files as usual in `app/assets/chili_likes/javascripts|stylesheets` and inject them into the layout using an override:
+
+```erb
+<% # app/overrides/layouts/application/chili_likes.html.erb.deface %>
+<!-- insert_bottom 'head' -->
+<%= stylesheet_link_tag 'chili_likes/application' %>
+<%= javascript_include_tag 'chili_likes/application' %>
 ```
