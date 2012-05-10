@@ -43,7 +43,7 @@ Unobtrusively(!)...
 ### Prepare main app
 
 - make sure that shared views (f.ex layouts) uses `main_app.` prefix for routes
-- add `gem 'deface', :git => 'git://github.com/railsdog/deface.git', :branch => 'dsl'` to Gemfile
-- add `gemspec '../'` to Gemfile
+- add `gem 'deface', git: 'git://github.com/railsdog/deface.git', branch: 'dsl'` to Gemfile
+- add `gemspec path: '../'` to Gemfile
 - bundle
 - set up database
