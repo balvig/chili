@@ -1,6 +1,6 @@
 # Add main app as submodule
 # For some reason root when using git method is test/dummy so doing this manually
-main_app_git_repo = ask("Where is the main app located?")
+main_app_git_repo = ask("Where is the main app repository located?")
 run "cd #{destination_root} && git init"
 run "cd #{destination_root} && git submodule add #{main_app_git_repo}  main_app"
 

@@ -34,10 +34,15 @@ Unobtrusively(!)...
 
 ### Creating a new chili extension
 
-Assuming you want to add a new extension that adds "like" capabilities to a subset of users:
+Assuming you want to add a new extension that adds "like" capabilities to a subset of users, run:
+
+    chili likes
+
+This is basically a shortcut for running the rails engine generator with
+a custom template:
 
     rails plugin new chili_likes --mountable -m https://raw.github.com/balvig/chili/master/lib/chili/template.rb
-    
+
 ### Prepare main app
 
 - make sure that shared views (f.ex layouts) uses `main_app.` prefix for routes
@@ -48,7 +53,7 @@ Assuming you want to add a new extension that adds "like" capabilities to a subs
 
 ### Setting up activation conditions
 
-Use the active_if block to control whether new controllers/overrides are visible or not. 
+Use the active_if block to control whether new controllers/overrides are visible or not.
 The context of the active_if block is the application controller so you can use any methods available to that.
 
 ```ruby
@@ -61,7 +66,7 @@ end
 
 ### Modifying view templates in main app
 
-See [deface docs](https://github.com/railsdog/deface#readme) for details. 
+See [deface docs](https://github.com/railsdog/deface#readme) for details.
 As an example, assuming the main app has a partial at `app/views/posts/_post.html.erb`:
 
 ```erb
@@ -73,12 +78,12 @@ As an example, assuming the main app has a partial at `app/views/posts/_post.htm
 ### Adding new resources
 
 Use `rails g scaffold Like` as usual when using engines. The new resource will be namespaced to ChiliLikes::Like
-and automounted in the main app at `/chili_extension/likes` if active_if is true. All the rules for using 
+and automounted in the main app at `/chili_extension/likes` if active_if is true. All the rules for using
 [engine-based models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
 
 ### Modifying existing models
 
-Create a model with the same name as the one you want to modify: `rails g model User --migration=false` 
+Create a model with the same name as the one you want to modify: `rails g model User --migration=false`
 and inherit from the original:
 
 ```ruby
