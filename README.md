@@ -77,8 +77,8 @@ As an example, assuming the main app has a partial at `app/views/posts/_post.htm
 ### Adding new resources
 
 Use `rails g scaffold Like` as usual when using engines. The new resource will be namespaced to ChiliLikes::Like
-and automounted in the main app at `/chili_extension/likes` if active_if is true. All the rules for using
-[engine-based models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
+and automounted in the main app at `/chili_likes/likes`, but only accessible when active_if is true. 
+All the rules for using [engine-based models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
 
 ### Modifying existing models
 
