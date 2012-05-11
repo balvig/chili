@@ -60,14 +60,7 @@ RUBY
 end
 
 # Automount engine
-append_to_file 'config/routes.rb' do <<-RUBY
-
-# Automount engine
-Rails.application.routes.draw do
-  mount #{app_path.camelcase}::Engine => "/#{app_path}"
-end
-RUBY
-end
+prepend_to_file 'config/routes.rb', "#{app_path.camelcase}::Engine.automount!\n"
 
 # Include chili libs
 prepend_to_file "lib/#{app_path}.rb" do <<-RUBY

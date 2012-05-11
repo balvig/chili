@@ -19,7 +19,6 @@ Unobtrusively(!)...
 
 ### Obstacles
 
-- Resource route generator adds routes both to engine and main routes file
 - Deface caches overrides in production. Monkey patch?
 
 ### Minor niggles
