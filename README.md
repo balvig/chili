@@ -111,3 +111,8 @@ Add files as usual in `app/assets/chili_likes/javascripts|stylesheets` and injec
 <%= stylesheet_link_tag 'chili_likes/application' %>
 <%= javascript_include_tag 'chili_likes/application' %>
 ```
+
+## Gotchas
+
+- Chili will not be able to automount if you use a catch-all route in your main app (ie `match '*a', to: 'errors#routing'`), you will have to remove the catch-all or manually add the engine to the main app's routes file.
+- Just like normal engines, Chili requires you to prepend path helpers with `main_app` (ie `main_app.root_path` etc) in view templates that are shared with the main app (such as the main app's application layout file).
