@@ -85,8 +85,8 @@ All the rules for using [engine-based models](http://railscasts.com/episodes/277
 Create a model with the same name as the one you want to modify: `rails g model User --migration=false`
 and inherit from the original:
 
-# app/model/chili_likes/user.rb
 ```ruby
+# app/model/chili_likes/user.rb
 module ChiliLikes
   class User < ::User
     has_many :likes
