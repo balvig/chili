@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["jens@balvig.com"]
   gem.description   = %q{The spicy extension framework (work in progress)}
   gem.summary       = %q{The spicy extension framework (work in progress)}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/balvig/chili"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
