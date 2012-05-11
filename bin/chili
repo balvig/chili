@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
 
-system "rails plugin new chili_#{ARGV.first} --mountable -m https://raw.github.com/balvig/chili/master/lib/chili/template.rb"
+template_file = File.join(File.dirname(__FILE__), '..', 'lib', 'chili', 'template.rb')
+system "rails plugin new chili_#{ARGV.first} --mountable -m #{template_file}"

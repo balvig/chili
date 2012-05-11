@@ -37,10 +37,7 @@ Assuming you want to add a new extension that adds "like" capabilities to a subs
 
     chili likes
 
-This is basically a shortcut for running the rails engine generator with
-a custom template:
-
-    rails plugin new chili_likes --mountable -m https://raw.github.com/balvig/chili/master/lib/chili/template.rb
+This is basically a shortcut for running the `rails plugin new` engine generator with a custom template.
 
 The script will prompt you for the location of your main app repository to which you are adding the chili extension.
 The repo will be added as a submodule in the main_app directory.
@@ -88,8 +85,8 @@ and automounted in the main app at `/chili_extension/likes` if active_if is true
 Create a model with the same name as the one you want to modify: `rails g model User --migration=false`
 and inherit from the original:
 
-```ruby
 # app/model/chili_likes/user.rb
+```ruby
 module ChiliLikes
   class User < ::User
     has_many :likes
