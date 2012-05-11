@@ -43,6 +43,9 @@ a custom template:
 
     rails plugin new chili_likes --mountable -m https://raw.github.com/balvig/chili/master/lib/chili/template.rb
 
+The script will prompt you for the location of your main app repository to which you are adding the chili extension.
+The repo will be added as a submodule in the main_app directory.
+
 ### Prepare main app
 
 - make sure that shared views (f.ex layouts) uses `main_app.` prefix for routes
