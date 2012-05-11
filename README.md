@@ -19,8 +19,7 @@ Unobtrusively(!)...
 
 ### Obstacles
 
-- make request specs understand paths
-- resource route generator adds routes both to engine and main routes file
+- Resource route generator adds routes both to engine and main routes file
 - Deface caches overrides in production. Monkey patch?
 
 ### Minor niggles
@@ -29,6 +28,7 @@ Unobtrusively(!)...
 - Can only have one override per engine per partial due to the way I'm grabbing the class from the override
 - Need to use DSL branch from deface
 - Have to restart server when adding overrides
+- Request specs don't have access to path helpers
 
 ## Docs...
 
