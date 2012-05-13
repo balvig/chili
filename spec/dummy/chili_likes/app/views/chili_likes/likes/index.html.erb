@@ -1,0 +1,9 @@
+<h1>Your Likes</h1>
+
+<ul>
+<% @likes.each do |like| %>
+  <li><%= like.created_at.to_date %> - <%= like.post.title %></li>
+<% end %>
+</ul>
+
+<%= link_to 'Go Back', main_app.posts_path %>
