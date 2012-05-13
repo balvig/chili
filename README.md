@@ -69,9 +69,10 @@ See [deface docs](https://github.com/railsdog/deface#readme) for details.
 As an example, assuming the main app has a partial at `app/views/posts/_post.html.erb`:
 
 ```erb
-<% # app/overrides/posts/_post/chili_likes.html.erb.deface (folder should mimic main app view path) %>
-<!-- insert_bottom 'li' -->
-<%= link_to 'Show likes', chili_likes.likes_path %>
+<% # app/overrides/posts/_post/chili_likes.html.erb.deface (folder should mirror main app view path) %>
+<!-- insert_bottom 'tr' -->
+  <td><%= link_to 'Like!', chili_likes.likes_path(like: {post_id: post}), method: :post %></td>
+<% end %>
 ```
 
 ### Adding new resources
