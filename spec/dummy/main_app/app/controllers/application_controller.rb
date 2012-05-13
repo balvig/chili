@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  def logged_in?
-    true
+  def current_user
+    User.last
   end
 
-  def admin?
-    false
+  def logged_in?
+    current_user
   end
 end

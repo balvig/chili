@@ -1,0 +1,2 @@
+<!-- insert_bottom 'head' -->
+<%= stylesheet_link_tag 'chili_likes/application' %>

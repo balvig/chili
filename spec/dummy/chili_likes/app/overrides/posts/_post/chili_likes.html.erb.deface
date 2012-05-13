@@ -1,0 +1,2 @@
+<!-- insert_bottom 'tr' -->
+<%= link_to 'Like!', chili_likes.likes_path(like: {post_id: post}), method: :post %>
