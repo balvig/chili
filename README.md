@@ -65,8 +65,8 @@ end
 
 ### Modifying view templates in main app
 
-See [deface docs](https://github.com/railsdog/deface#readme) for details.
-As an example, assuming the main app has a partial at `app/views/posts/_post.html.erb`:
+Add an override (see [deface docs](https://github.com/railsdog/deface#readme) for details) with the same name as the extension.
+As an example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
 
 ```erb
 <% # app/overrides/posts/_post/chili_likes.html.erb.deface (folder should mirror main app view path) %>
