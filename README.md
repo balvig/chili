@@ -33,7 +33,7 @@ Unobtrusively(!)...
 
 ### Creating a new chili extension
 
-Assuming you want to add a new extension that adds "like" capabilities to a subset of users, run:
+Assuming you want to add a new extension that adds exposes a new "like" button feature to a subset of users, first run:
 
     chili likes
 
