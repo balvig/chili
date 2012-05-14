@@ -1,35 +1,15 @@
 # Chili
 
-The spicy extension framework
+The spicy extension framework.
 
-## Roadmap
+Have you ever wanted to test out a new feature on only a subset of users?
+Did that implementation end up being lots of if/else statements embedded in the main code?
+If so, Chili can help!
 
-### Core features
+Chili is built on top of Rails Engines and Deface and allows you to conditionally add new/modify existing views, 
+while leaving the main code untouched.
 
-Unobtrusively(!)...
-
-- add new models `done`
-- add new tables/migrations `done`
-- add new controllers and show/hide conditionally `done`
-- add new views and show/hide conditionally `done`
-- conditionally add to/edit existing views `done`
-- add methods to existing models `done`
-- add new stylesheets and javascripts `done`
-- modify existing controller actions
-
-### Obstacles
-
-- Deface caches overrides in production. Monkey patch?
-
-### Minor niggles
-
-- Have to add gemspec to main app
-- Can only have one override per engine per partial due to the way I'm grabbing the class from the override
-- Need to use DSL branch from deface
-- Have to restart server when adding overrides
-- Request specs don't have access to path helpers
-
-## Docs...
+## Usage
 
 ### Creating a new chili extension
 
@@ -112,7 +92,22 @@ Add files as usual in `app/assets/chili_likes/javascripts|stylesheets` and injec
 <%= javascript_include_tag 'chili_likes/application' %>
 ```
 
-## Gotchas
+### Gotchas
 
 - Chili will not be able to automount if you use a catch-all route in your main app (ie `match '*a', to: 'errors#routing'`), you will have to remove the catch-all or manually add the engine to the main app's routes file.
 - Just like normal engines, Chili requires you to prepend path helpers with `main_app` (ie `main_app.root_path` etc) in view templates that are shared with the main app (such as the main app's application layout file).
+
+## Roadmap
+
+### Current Issues
+
+- Deface caches overrides in production. Monkey patch?
+- Haven't found a good way to modify existing controller actions
+
+### Minor niggles
+
+- Have to add gemspec to main app
+- Can only have one override per engine per partial due to the way I'm grabbing the class from the override
+- Need to use DSL branch from deface
+- Have to restart server when adding overrides
+- Request specs don't have access to path helpers
