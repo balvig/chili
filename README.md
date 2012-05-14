@@ -24,11 +24,9 @@ The repo will be added as a submodule in the main_app directory.
 
 ### Prepare main app
 
-- make sure that shared views (f.ex layouts) uses `main_app.` prefix for routes
-- add `gem 'deface', git: 'git://github.com/railsdog/deface.git', branch: 'dsl'` to Gemfile
-- add `gemspec path: '../'` to Gemfile
-- bundle
-- set up database
+- add `gem 'deface', git: 'git://github.com/railsdog/deface.git', branch: 'dsl'` to main_app/Gemfile
+- add `gemspec path: '../'` to main_app/Gemfile
+- run `bundle` within the main_app directory.
 
 ### Setting up activation conditions
 
