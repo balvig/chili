@@ -1,10 +1,8 @@
 # Chili
 
-The spicy extension framework.
-
 Have you ever wanted to test out a new feature on only a subset of users?
 Did that implementation end up being lots of if/else statements embedded in the main code?
-If so, Chili can help!
+If so, Chili can help.
 
 Chili is built on top of Rails Engines and Deface and allows you to conditionally add new/modify existing views, 
 while leaving the main code untouched.
