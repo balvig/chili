@@ -105,5 +105,4 @@ Add files as usual in `app/assets/chili_likes/javascripts|stylesheets` and injec
 - Have to add gemspec to main app
 - Can only have one override per engine per partial due to the way I'm grabbing the class from the override
 - Need to use DSL branch from deface
-- Have to restart server when adding overrides
 - Request specs don't have access to path helpers
