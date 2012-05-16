@@ -97,12 +97,11 @@ Add files as usual in `app/assets/chili_likes/javascripts|stylesheets` and injec
 
 ### Current Issues
 
-- Deface caches overrides in production. Monkey patch?
+- Can only have one override per engine per partial due to the way I'm grabbing the class from the override
 - Haven't found a good way to modify existing controller actions
+- Need to use DSL branch from deface
 
 ### Minor niggles
 
 - Have to add gemspec to main app
-- Can only have one override per engine per partial due to the way I'm grabbing the class from the override
-- Need to use DSL branch from deface
 - Request specs don't have access to path helpers
