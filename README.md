@@ -7,6 +7,12 @@ If so, Chili can help.
 Chili is built on top of Rails Engines and Deface and allows you to conditionally add new/modify existing views, 
 while leaving the main code untouched.
 
+## Installation
+
+Install Chili on your system (not in your app!):
+
+    gem install chili
+
 ## Usage
 
 ### Creating a new chili extension
