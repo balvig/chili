@@ -32,7 +32,7 @@ The repo will be added as a submodule in the main_app directory of the chili ext
 - add `gemspec path: '../'` to main_app/Gemfile
 - run `bundle` within the main_app directory.
 
-### Setting up activation conditions
+### Define who can see the extension
 
 Use the active_if block to control whether new controllers/overrides are visible or not.
 The context of the active_if block is the application controller so you can use any methods available to that.
@@ -47,8 +47,8 @@ end
 
 ### Modifying view templates in main app
 
-Add an override (see [deface docs](https://github.com/railsdog/deface#readme) for details) with the same name as the extension.
-As an example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
+Chili uses deface to modify existing view templates (see [deface docs](https://github.com/railsdog/deface#readme) for details)
+Add an override with the same name as the extension. As an example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
 
 ```erb
 <% # app/overrides/posts/_post/chili_likes.html.erb.deface (folder should mirror main app view path) %>
