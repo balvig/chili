@@ -24,7 +24,7 @@ Assuming you want to add a new extension that adds exposes a new "like" button f
 This is basically a shortcut for running the `rails plugin new` engine generator with a custom template.
 
 The script will prompt you for the location of your main app repository to which you are adding the chili extension.
-The repo will be added as a submodule in the main_app directory.
+The repo will be added as a submodule in the main_app directory of the chili extension.
 
 ### Prepare main app
 
