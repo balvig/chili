@@ -78,10 +78,11 @@ RUBY
 end
 
 # Add dummy override
-create_file "app/overrides/layouts/application/#{app_path}.html.erb.deface" do <<-RUBY
+example_file_path = "app/overrides/layouts/application/#{app_path}.html.erb.deface"
+create_file example_file_path do <<-RUBY
 <!-- insert_bottom 'body' -->
 <div style='background: #FFF;text-align: center; padding: 4px 0;position: fixed;width: 100%;z-index: 9999;top: 0;'>
-  #{app_path} activated - <%= link_to 'deface docs', 'https://github.com/railsdog/deface', target: '_blank' %>
+  #{app_path} activated - edit this file at #{example_file_path} <%= link_to 'deface docs', 'https://github.com/railsdog/deface', target: '_blank' %>
 </div>
 RUBY
 end
