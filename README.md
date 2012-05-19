@@ -15,22 +15,19 @@ Install Chili on your system (not in your app!):
 
 ## Usage
 
+Just like engines chili extensions are like mini apps that are created separately from the main app using the "chili" command.
+
 ### Creating a new chili extension
 
 Assuming you want to add a new extension that adds exposes a new "like" button feature to a subset of users, first run:
 
     chili likes
 
-This is basically a shortcut for running the `rails plugin new` engine generator with a custom template.
+This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
 
-The script will prompt you for the location of your main app repository to which you are adding the chili extension.
-The repo will be added as a submodule in the main_app directory of the chili extension.
-
-### Prepare main app
-
-- add `gem 'deface', git: 'git://github.com/railsdog/deface.git', branch: 'dsl'` to main_app/Gemfile
-- add `gemspec path: '../'` to main_app/Gemfile
-- run `bundle` within the main_app directory.
+1. Create a directory named chili_likes containing the basic structure for the extension
+2. Clone the app you are adding the extension to as a submodule into chili_likes/main_app
+3. Add a reference to the extensions gemspec to the main app gemfile for testing (PENDING DEFACE RELEASE)
 
 ### Define who can see the extension
 
