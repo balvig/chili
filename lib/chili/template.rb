@@ -1,8 +1,19 @@
 # Add main app as submodule
 # For some reason root when using git method is test/dummy so doing this manually
-main_app_git_repo = ask("Where is the main app repository located?")
-run "cd #{destination_root} && git init"
-run "cd #{destination_root} && git submodule add #{main_app_git_repo}  main_app"
+main_app_git_repo = ask("Where is the main app you are extending located? (ie git://github.com/myname/myapp.git)")
+if main_app_git_repo.present?
+  run "cd #{destination_root} && git init"
+  run "cd #{destination_root} && git submodule add #{main_app_git_repo}  main_app"
+end
+
+# Add gemspec and deface branch to  main app Gemfile
+append_to_file "main_app/Gemfile" do <<-RUBY
+
+# Chili dev dependencies
+gemspec path: '../'
+gem 'deface', git: 'git://github.com/railsdog/deface.git', branch: 'dsl'
+RUBY
+end
 
 # Uses Chili::ApplicationController and the layout from the main app
 remove_dir "app/controllers/#{app_path}"
@@ -82,7 +93,9 @@ example_file_path = "app/overrides/layouts/application/#{app_path}.html.erb.defa
 create_file example_file_path do <<-RUBY
 <!-- insert_bottom 'body' -->
 <div style='background: #FFF;text-align: center; padding: 4px 0;position: fixed;width: 100%;z-index: 9999;top: 0;'>
-  #{app_path} activated - edit this file at #{example_file_path} <%= link_to 'deface docs', 'https://github.com/railsdog/deface', target: '_blank' %>
+  #{app_path} active - edit/remove this file:<br/>
+  <strong>#{example_file_path}</strong><br/>
+  <%= link_to 'deface docs', 'https://github.com/railsdog/deface', target: '_blank' %>
 </div>
 RUBY
 end

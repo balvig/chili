@@ -4,7 +4,7 @@ Have you ever wanted to test out a new feature on only a subset of users?
 Did that implementation end up being lots of if/else statements embedded in the main code?
 If so, Chili can help.
 
-Chili is built on top of Rails Engines and Deface and allows you to conditionally add new/modify existing views, 
+Chili is built on top of Rails Engines and Deface and allows you to conditionally add new/modify existing views,
 while leaving the main code untouched.
 
 ## Installation
@@ -27,7 +27,7 @@ This is basically a shortcut for running the `rails plugin new` engine generator
 
 1. Create a directory named chili_likes containing the basic structure for the extension
 2. Clone the app you are adding the extension to as a submodule into chili_likes/main_app
-3. Add a reference to the extensions gemspec to the main app gemfile for testing (PENDING DEFACE RELEASE)
+3. Add a reference to the extensions gemspec to the main app gemfile for testing
 
 ### Define who can see the extension
 
@@ -56,7 +56,7 @@ Add an override with the same name as the extension. As an example, assuming the
 ### Adding new resources
 
 Use `rails g scaffold Like` as usual when using engines. The new resource will be namespaced to ChiliLikes::Like
-and automounted in the main app at `/chili_likes/likes`, but only accessible when active_if is true. 
+and automounted in the main app at `/chili_likes/likes`, but only accessible when active_if is true.
 All the rules for using [engine-based models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
 
 ### Modifying existing models
