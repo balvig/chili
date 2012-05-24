@@ -19,14 +19,14 @@ Just like engines chili extensions are like mini apps that are created separatel
 
 ### Creating a new chili extension
 
-Assuming you want to add a new extension that adds exposes a new "like" button feature to a subset of users, first run:
+Assuming you want to add a new extension that adds exposes a new social feature such as a "like" button feature to a subset of users, first run:
 
-    chili likes
+    chili social # social is the name of the extension
 
 This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
 
-1. Create a directory named chili_likes containing the basic structure for the extension
-2. Clone the app you are adding the extension to as a submodule into chili_likes/main_app
+1. Create a directory named chili_social containing the basic structure for the extension
+2. Clone the app you are adding the extension to as a submodule into chili_social/main_app
 3. Add a reference to the extensions gemspec to the main app gemfile for testing
 
 ### Define who can see the extension
@@ -35,8 +35,8 @@ Use the active_if block to control whether new controllers/overrides are visible
 The context of the active_if block is the application controller so you can use any methods available to that.
 
 ```ruby
-# lib/chili_likes.rb
-module ChiliLikes
+# lib/chili_social.rb
+module ChiliSocial
   extend Chili::Activatable
   active_if { logged_in? && current_user.admin? } # Extension is only visible to logged in admin users
 end
@@ -45,18 +45,19 @@ end
 ### Modifying view templates in main app
 
 Chili uses deface to modify existing view templates (see [deface docs](https://github.com/railsdog/deface#readme) for details)
-Add an override with the same name as the extension. As an example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
+Add overrides to the `app/overides` directory mirroing the path of the view you want to modify.
+For example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
 
 ```erb
-<% # app/overrides/posts/_post/chili_likes.html.erb.deface (folder should mirror main app view path) %>
+<% # app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) %>
 <!-- insert_bottom 'tr' -->
-<td><%= link_to 'Like!', chili_likes.likes_path(like: {post_id: post}), method: :post %></td>
+<td><%= link_to 'Like!', chili_social.likes_path(like: {post_id: post}), method: :post %></td>
 ```
 
 ### Adding new resources
 
-Use `rails g scaffold Like` as usual when using engines. The new resource will be namespaced to ChiliLikes::Like
-and automounted in the main app at `/chili_likes/likes`, but only accessible when active_if is true.
+Use `rails g scaffold Like` as usual when using engines. The new resource will be namespaced to ChiliSocial::Like
+and automounted in the main app at `/chili/social/likes`, but only accessible when active_if is true.
 All the rules for using [engine-based models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
 
 ### Modifying existing models
@@ -65,8 +66,8 @@ Create a model with the same name as the one you want to modify: `rails g model 
 and inherit from the original:
 
 ```ruby
-# app/model/chili_likes/user.rb
-module ChiliLikes
+# app/model/chili_social/user.rb
+module ChiliSocial
   class User < ::User
     has_many :likes
   end
@@ -76,19 +77,19 @@ end
 Access through the namespaced model:
 
 ```erb
-<%= ChiliLikes::User.first.likes %>
-<%= current_user.becomes(ChiliLikes::User).likes %>
+<%= ChiliSocial::User.first.likes %>
+<%= current_user.becomes(ChiliSocial::User).likes %>
 ```
 
 ### Adding new stylesheets/javascripts
 
-Add files as usual in `app/assets/chili_likes/javascripts|stylesheets` and inject them into the layout using an override:
+Add files as usual in `app/assets/chili_social/javascripts|stylesheets` and inject them into the layout using an override:
 
 ```erb
-<% # app/overrides/layouts/application/chili_likes.html.erb.deface %>
+<% # app/overrides/layouts/application/assets.html.erb.deface %>
 <!-- insert_bottom 'head' -->
-<%= stylesheet_link_tag 'chili_likes/application' %>
-<%= javascript_include_tag 'chili_likes/application' %>
+<%= stylesheet_link_tag 'chili_social/application' %>
+<%= javascript_include_tag 'chili_social/application' %>
 ```
 
 ### Gotchas
