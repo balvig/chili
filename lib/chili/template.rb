@@ -11,7 +11,7 @@ append_to_file "main_app/Gemfile" do <<-RUBY
 
 # Chili dev dependencies
 gemspec path: '../'
-gem 'deface', git: 'git://github.com/railsdog/deface.git', branch: 'dsl'
+gem 'deface', github: 'railsdog/deface'
 RUBY
 end
 
