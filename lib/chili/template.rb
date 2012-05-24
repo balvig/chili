@@ -89,7 +89,7 @@ RUBY
 end
 
 # Add dummy override
-example_file_path = "app/overrides/layouts/application/#{app_path}.html.erb.deface"
+example_file_path = "app/overrides/layouts/application/example.html.erb.deface"
 create_file example_file_path do <<-RUBY
 <!-- insert_bottom 'body' -->
 <div style='background: #FFF;text-align: center; padding: 4px 0;position: fixed;width: 100%;z-index: 9999;top: 0;'>
