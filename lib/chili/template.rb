@@ -32,6 +32,10 @@ require 'chili/tasks'
 RUBY
 end
 
+# Remove jquery stuff from application.js
+gsub_file "app/assets/javascripts/#{app_path}/application.js", '//= require jquery_ujs', ''
+gsub_file "app/assets/javascripts/#{app_path}/application.js", '//= require jquery', ''
+
 # Setup custom generator
 inject_into_file "lib/#{app_path}/engine.rb", :after => "isolate_namespace #{app_path.camelcase}\n" do <<-RUBY
     config.generators do |g|
