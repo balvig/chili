@@ -33,8 +33,8 @@ RUBY
 end
 
 # Remove jquery stuff from application.js
-gsub_file "app/assets/javascripts/#{app_path}/application.js", '//= require jquery_ujs', ''
-gsub_file "app/assets/javascripts/#{app_path}/application.js", '//= require jquery', ''
+gsub_file "app/assets/javascripts/#{app_path}/application.js", "//= require jquery_ujs\n", ''
+gsub_file "app/assets/javascripts/#{app_path}/application.js", "//= require jquery\n", ''
 
 # Setup custom generator
 inject_into_file "lib/#{app_path}/engine.rb", :after => "isolate_namespace #{app_path.camelcase}\n" do <<-RUBY
@@ -73,6 +73,9 @@ inject_into_file "lib/#{app_path}/engine.rb", :after => " g.scaffold_controller 
       g.integration_tool :rspec
 RUBY
 end
+
+# Edit .gitignote
+gsub_file ".gitignore", /test\/dummy.*\n/, ''
 
 # Automount engine
 prepend_to_file 'config/routes.rb', "#{app_path.camelcase}::Engine.automount!\n"
