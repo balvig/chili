@@ -9,9 +9,9 @@ while leaving the main code untouched.
 
 ## Installation
 
-Install Chili on your system (not in your app!):
+Install Chili on your system (not in your app):
 
-    gem install chili
+    $ gem install chili
 
 ## Usage
 
@@ -21,7 +21,7 @@ Just like engines chili extensions are like mini apps that are created separatel
 
 Assuming you want to add a new extension that adds exposes a new social feature such as a "like" button feature to a subset of users, first run:
 
-    chili social # social is the name of the extension
+    $ chili social # social is the name of the extension
 
 This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
 
@@ -101,9 +101,10 @@ Add files as usual in `app/assets/chili_social/javascripts|stylesheets` and inje
 
 ### Current Issues
 
-- Can only have one override per engine per partial due to the way I'm grabbing the class from the override
 - Haven't found a good way to modify existing controller actions
 - Need to use DSL branch from deface
+- Docs for releasing to production
+- Docs for running tests
 
 ### Minor niggles
 

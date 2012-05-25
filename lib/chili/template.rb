@@ -74,7 +74,7 @@ inject_into_file "lib/#{app_path}/engine.rb", :after => " g.scaffold_controller 
 RUBY
 end
 
-# Edit .gitignote
+# Edit .gitignore
 gsub_file ".gitignore", /test\/dummy.*\n/, ''
 
 # Automount engine
