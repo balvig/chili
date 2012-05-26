@@ -6,11 +6,11 @@ if main_app_git_repo.present?
   run "cd #{destination_root} && git submodule add #{main_app_git_repo}  main_app"
 end
 
-# Add gemspec and deface branch to  main app Gemfile
+# Add gem and deface to main app Gemfile
 append_to_file "main_app/Gemfile" do <<-RUBY
 
 # Chili dev dependencies
-gemspec path: '../'
+gem '#{app_path}', path: '../' # git: '...'
 gem 'deface', github: 'railsdog/deface'
 RUBY
 end
