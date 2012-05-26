@@ -99,14 +99,16 @@ Add files as usual in `app/assets/chili_social/javascripts|stylesheets` and inje
 
 ## Roadmap
 
+### Missing features
+
 - Running any rails command (rails server, bundle etc) should run the command in the main app directory
+- Docs for releasing to production
+- Docs for running tests
 
 ### Current Issues
 
 - Haven't found a good way to modify existing controller actions
 - Need to use deface from github
-- Docs for releasing to production
-- Docs for running tests
 
 ### Minor niggles
 
