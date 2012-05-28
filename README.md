@@ -19,9 +19,10 @@ Just like engines chili extensions are like mini apps that are created separatel
 
 ### Creating a new chili extension
 
-Assuming you want to add a new extension that adds exposes a new social feature such as a "like" button feature to a subset of users, first run:
+As an example, assuming you want to add a new extension named "social" that exposes a new social feature in the form of a like-button 
+to a subset of users, first run:
 
-    $ chili social # social is the name of the extension
+    $ chili social
 
 This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
 
