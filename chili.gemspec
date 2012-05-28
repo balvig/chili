@@ -16,6 +16,8 @@ Gem::Specification.new do |gem|
   gem.version       = Chili::VERSION
 
   gem.add_dependency "rails", "~> 3.2"
+  gem.add_dependency "deface", "~> 0.9"
+
   gem.add_development_dependency 'rspec', '~> 2.9.0'
   gem.add_development_dependency 'rspec-rails', '~> 2.9.0'
   gem.add_development_dependency 'jquery-rails'

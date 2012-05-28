@@ -27,7 +27,7 @@ This is basically a shortcut for running the `rails plugin new` engine generator
 
 1. Create a directory named chili_social containing the basic structure for the extension
 2. Clone the app you are adding the extension to as a submodule into chili_social/main_app
-3. Add a reference to the extensions gemspec to the main app gemfile for testing
+3. Add a reference to the extension to the main app gemfile for development/testing
 
 ### Define who can see the extension
 
@@ -66,7 +66,7 @@ Create a model with the same name as the one you want to modify: `rails g model 
 and inherit from the original:
 
 ```ruby
-# app/model/chili_social/user.rb
+# app/models/chili_social/user.rb
 module ChiliSocial
   class User < ::User
     has_many :likes
@@ -108,9 +108,8 @@ Add files as usual in `app/assets/chili_social/javascripts|stylesheets` and inje
 ### Current Issues
 
 - Haven't found a good way to modify existing controller actions
-- Need to use deface from github
 
 ### Minor niggles
 
-- Have to use "path" option when adding gem to main app
 - Request specs don't have access to path helpers
+- Generated specs don't namespace properly

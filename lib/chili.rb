@@ -1,3 +1,4 @@
+require "deface"
 require "chili/version"
 require "chili/engine"
 require "chili/overrides"

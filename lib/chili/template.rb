@@ -6,14 +6,8 @@ if main_app_git_repo.present?
   run "cd #{destination_root} && git submodule add #{main_app_git_repo}  main_app"
 end
 
-# Add gem and deface to main app Gemfile
-append_to_file "main_app/Gemfile" do <<-RUBY
-
-# Chili dev dependencies
-gem '#{app_path}', path: '../' # git: '...'
-gem 'deface', github: 'railsdog/deface'
-RUBY
-end
+# Add gem to main app Gemfile
+append_to_file "main_app/Gemfile", "gem '#{app_path}', path: '../' # git: '...'"
 
 # Uses Chili::ApplicationController and the layout from the main app
 remove_dir "app/controllers/#{app_path}"
@@ -81,12 +75,14 @@ gsub_file ".gitignore", /test\/dummy.*\n/, ''
 prepend_to_file 'config/routes.rb', "#{app_path.camelcase}::Engine.automount!\n"
 
 # Include chili libs
+require File.expand_path('../version', __FILE__)
+
 prepend_to_file "lib/#{app_path}.rb" do <<-RUBY
 require "chili"
 RUBY
 end
 
-gsub_file "#{app_path}.gemspec", '# s.add_dependency "jquery-rails"', 's.add_dependency "chili"'
+gsub_file "#{app_path}.gemspec", '# s.add_dependency "jquery-rails"', "s.add_dependency 'chili', '~> #{Chili::VERSION}'"
 
 # Include active_if
 inject_into_file "lib/#{app_path}.rb", :after => "module #{app_path.camelcase}\n" do <<-RUBY
