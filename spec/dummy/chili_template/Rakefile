@@ -1,0 +1,6 @@
+#!/usr/bin/env rake
+APP_RAKEFILE = File.expand_path("../main_app/Rakefile", __FILE__)
+require 'chili/tasks'
+
+# Default rake task to rspec
+task default: 'app:spec'

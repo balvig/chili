@@ -16,5 +16,6 @@ spec/dummy/main_app/db/*.sqlite3
 spec/dummy/main_app/log/*.log
 spec/dummy/main_app/tmp/
 spec/dummy/main_app/.sass-cache
+spec/result
 tmp
 .DS_Store

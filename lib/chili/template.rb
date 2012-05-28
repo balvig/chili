@@ -9,14 +9,15 @@ gsub_file gemspec, 'Dir["test/**/*"]', 's.files.grep(%r{^(test|spec|features)/})
 
 # Add main app as submodule
 # For some reason root when using git method is test/dummy so doing this manually
-main_app_git_repo = ask("Where is the main app you are extending located? (ie git://github.com/myname/myapp.git)")
+main_app_git_repo = ENV['MAIN_APP'] || ask("Where is the main app you are extending located? (ie git://github.com/myname/myapp.git)")
 if main_app_git_repo.present?
   run "cd #{destination_root} && git init"
   run "cd #{destination_root} && git submodule add #{main_app_git_repo}  main_app"
+
+  # Add gem to main app Gemfile
+  append_to_file "main_app/Gemfile", "gem '#{app_path}', path: '../' # git: '...'"
 end
 
-# Add gem to main app Gemfile
-append_to_file "main_app/Gemfile", "gem '#{app_path}', path: '../' # git: '...'"
 
 # Uses Chili::ApplicationController and the layout from the main app
 remove_dir "app/controllers/#{app_path}"
