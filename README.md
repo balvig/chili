@@ -9,7 +9,7 @@ while leaving the main code untouched.
 
 ## Installation
 
-Install Chili on your system (not in your app):
+Install Chili on your system (no need to add it to your app's gemfile):
 
     $ gem install chili
 
