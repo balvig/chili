@@ -92,24 +92,24 @@ Add files as usual in `app/assets/chili_social/javascripts|stylesheets` and inje
 <%= javascript_include_tag 'chili_social/application' %>
 ```
 
-### Gotchas
+## Releasing to production
+
+Once your chili extension is ready to be released all you have to do is push the repo somewhere, 
+add the extension to the Gemfile of the app you are releasing it to:
+
+```ruby
+gem 'chili_social', git: 'git@github.com:githubuser/chili_social.git'
+```
+
+...and bundle and install any migrations (just like any other engine):
+
+``` 
+$ bundle
+$ rake chili_social:migrations:install
+$ rake db:migrate
+```
+
+## Gotchas
 
 - Chili will not be able to automount if you use a catch-all route in your main app (ie `match '*a', to: 'errors#routing'`), you will have to remove the catch-all or manually add the engine to the main app's routes file.
 - Just like normal engines, Chili requires you to prepend path helpers with `main_app` (ie `main_app.root_path` etc) in view templates that are shared with the main app (such as the main app's application layout file).
-
-## Roadmap
-
-### Missing features
-
-- Running any rails command (rails server, bundle etc) should run the command in the main app directory
-- Docs for releasing to production
-- Docs for running tests
-
-### Current Issues
-
-- Haven't found a good way to modify existing controller actions
-
-### Minor niggles
-
-- Request specs don't have access to path helpers
-- Generated specs don't namespace properly
