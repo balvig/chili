@@ -1,3 +1,12 @@
+# Edit gemspec
+require File.expand_path('../version', __FILE__)
+gemspec = "#{app_path}.gemspec"
+gsub_file gemspec, '# s.add_dependency "jquery-rails"', "s.add_dependency 'chili', '~> #{Chili::VERSION}'"
+gsub_file gemspec, 'TODO: Your name', `git config user.name`.chomp
+gsub_file gemspec, 'TODO: Your email', `git config user.email`.chomp
+gsub_file gemspec, /TODO(:\s)?/, ''
+gsub_file gemspec, 'Dir["test/**/*"]', 's.files.grep(%r{^(test|spec|features)/})'
+
 # Add main app as submodule
 # For some reason root when using git method is test/dummy so doing this manually
 main_app_git_repo = ask("Where is the main app you are extending located? (ie git://github.com/myname/myapp.git)")
@@ -75,14 +84,11 @@ gsub_file ".gitignore", /test\/dummy.*\n/, ''
 prepend_to_file 'config/routes.rb', "#{app_path.camelcase}::Engine.automount!\n"
 
 # Include chili libs
-require File.expand_path('../version', __FILE__)
-
 prepend_to_file "lib/#{app_path}.rb" do <<-RUBY
 require "chili"
 RUBY
 end
 
-gsub_file "#{app_path}.gemspec", '# s.add_dependency "jquery-rails"', "s.add_dependency 'chili', '~> #{Chili::VERSION}'"
 
 # Include active_if
 inject_into_file "lib/#{app_path}.rb", :after => "module #{app_path.camelcase}\n" do <<-RUBY
