@@ -7,8 +7,8 @@ require "chili_template/version"
 Gem::Specification.new do |s|
   s.name        = "chili_template"
   s.version     = ChiliTemplate::VERSION
-  s.authors     = [""]
-  s.email       = ["jens@balvig.com"]
+  s.authors     = ["Jens Balvig"]
+  s.email       = ["jens@cookpad.com"]
   s.homepage    = ""
   s.summary     = "Summary of ChiliTemplate."
   s.description = "Description of ChiliTemplate."

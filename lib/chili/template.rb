@@ -36,12 +36,16 @@ require 'chili/tasks'
 RUBY
 end
 
+# Add Chili commands to rails script
+inject_into_file "script/rails","APP_PATH = File.expand_path('../../main_app/config/application',  __FILE__)\n", before: "\nrequire 'rails/all'"
+gsub_file "script/rails", 'rails/engine/commands', 'chili/commands'
+
 # Remove jquery stuff from application.js
 gsub_file "app/assets/javascripts/#{app_path}/application.js", "//= require jquery_ujs\n", ''
 gsub_file "app/assets/javascripts/#{app_path}/application.js", "//= require jquery\n", ''
 
 # Setup custom generator
-inject_into_file "lib/#{app_path}/engine.rb", :after => "isolate_namespace #{app_path.camelcase}\n" do <<-RUBY
+inject_into_file "lib/#{app_path}/engine.rb", after: "isolate_namespace #{app_path.camelcase}\n" do <<-RUBY
     config.generators do |g|
       g.scaffold_controller :chili
     end
