@@ -36,6 +36,7 @@ end
 # Remove dummy stuff
 remove_dir 'test'
 
+# Set up rspec
 inject_into_file "lib/#{name}/engine.rb", :after => " g.scaffold_controller :chili\n" do <<-RUBY
       g.test_framework :rspec, view_specs: false, routing_specs: false, controller_specs: false
       g.integration_tool :rspec
@@ -71,6 +72,14 @@ create_file example_file_path do <<-RUBY
   <strong>#{app_path}/#{example_file_path}</strong><br/>
   <%= link_to 'deface docs', 'https://github.com/railsdog/deface', target: '_blank' %>
 </div>
+RUBY
+end
+
+# Add assets override
+create_file 'app/overrides/layouts/application/assets.html.erb.deface' do <<-RUBY
+<!-- insert_bottom 'head' -->
+<%= stylesheet_link_tag '#{name}/application' %>
+<%= javascript_include_tag '#{name}/application' %>
 RUBY
 end
 

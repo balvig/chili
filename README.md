@@ -96,9 +96,9 @@ Access in your overrides/extension views through the namespaced model:
 <%= current_user.becomes(ChiliSocial::User).likes %>
 ```
 
-### Adding new stylesheets/javascripts
+### Stylesheets/javascripts
 
-Add files as usual in `app/assets/chili_social/javascripts|stylesheets` and inject them into the layout using an override:
+Files added to `app/assets/chili_social/javascripts|stylesheets` are automatically injected into the layout using a pre-generated override:
 
 ```erb
 <% # app/overrides/layouts/application/assets.html.erb.deface %>
@@ -106,6 +106,8 @@ Add files as usual in `app/assets/chili_social/javascripts|stylesheets` and inje
 <%= stylesheet_link_tag 'chili_social/application' %>
 <%= javascript_include_tag 'chili_social/application' %>
 ```
+
+If you don't need any css/js in your extension, you can remove this file.
 
 ## Gotchas
 
