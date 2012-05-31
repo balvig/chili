@@ -3,7 +3,6 @@
 
 ENGINE_ROOT = File.expand_path('../..', __FILE__)
 ENGINE_PATH = File.expand_path('../../lib/chili_template/engine', __FILE__)
-APP_PATH = File.expand_path('../../main_app/config/application',  __FILE__)
 
 require 'rails/all'
-require 'chili/commands'
+require 'rails/engine/commands'

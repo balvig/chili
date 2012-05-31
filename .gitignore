@@ -12,10 +12,11 @@ lib/bundler/man
 pkg
 rdoc
 spec/reports
-spec/dummy/main_app/db/*.sqlite3
-spec/dummy/main_app/log/*.log
-spec/dummy/main_app/tmp/
-spec/dummy/main_app/.sass-cache
-spec/result
+spec/dummy/example/db/*.sqlite3
+spec/dummy/example/log/*.log
+spec/dummy/example/tmp/
+spec/dummy/example/.sass-cache
+spec/dummy/example/vendor/chili_template
+spec/dummy/example/Gemfile
 tmp
 .DS_Store

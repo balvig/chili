@@ -1,6 +1,6 @@
 <!-- insert_bottom 'body' -->
 <div style='background: #FFF;text-align: center; padding: 4px 0;position: fixed;width: 100%;z-index: 9999;top: 0;'>
   chili_template active - edit/remove this file:<br/>
-  <strong>app/overrides/layouts/application/example.html.erb.deface</strong><br/>
+  <strong>vendor/chili_template/app/overrides/layouts/application/example.html.erb.deface</strong><br/>
   <%= link_to 'deface docs', 'https://github.com/railsdog/deface', target: '_blank' %>
 </div>

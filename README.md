@@ -9,26 +9,32 @@ while leaving the main code untouched.
 
 ## Installation
 
-Install Chili on your system (no need to add it to your app's gemfile):
+First add chili to your app's Gemfile:
 
-    $ gem install chili
+```ruby
+gem 'chili'
+```
+
+...and run `bundle`.
 
 ## Usage
 
-Just like engines chili extensions are like mini apps that are created separately from the main app using the "chili" command.
+Chili extensions are like mini apps that are created inside your main app's vendor directory using using the "chili" command.
 
 ### Creating a new chili extension
 
-As an example, assuming you want to add a new extension named "social" that exposes a new social feature in the form of a like-button 
-to a subset of users, first run:
+As an example, assuming you want to add a new extension named "social" that exposes a new social feature in the form of a like-button
+to a subset of users, first run within your main app:
 
     $ chili social
 
 This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
 
-1. Create a directory named chili_social containing the basic structure for the extension
-2. Clone the app you are adding the extension to as a submodule into chili_social/main_app
-3. Add a reference to the extension to the main app gemfile for development/testing
+1. Create a the directory vendor/chili_social containing the basic structure for the extension
+2. Add a reference to the extension to the main app gemfile
+
+Since the extension is mounted as a gem you'll have to run `bundle`
+after this.
 
 ### Define who can see the extension
 
@@ -46,7 +52,7 @@ end
 ### Modifying view templates in main app
 
 Chili uses deface to modify existing view templates (see [deface docs](https://github.com/railsdog/deface#using-the-deface-dsl-deface-files) for details)
-Add overrides to the `app/overides` directory mirroing the path of the view you want to modify.
+Add overrides to the `app/overides` directory mirroring the path of the view you want to modify.
 For example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
 
 ```erb
@@ -57,14 +63,23 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 
 ### Adding new resources
 
-Use `rails g scaffold Like` as usual when using engines. The new resource will be namespaced to ChiliSocial::Like
+Go to the extension's directory and use `rails g scaffold Like` as usual when using engines. The new resource will be namespaced to ChiliSocial::Like
 and automounted in the main app at `/chili/social/likes`, but only accessible when active_if is true.
 All the rules for using [engine-based models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
 
+
+### Migrations
+
+Migrations are handled exactly the same way as engines. Use the
+following commands after you've added a new migration to your extension:
+
+    $ rake chili_social:migrations:install
+    $ rake db:migrate
+
 ### Modifying existing models
 
-Create a model with the same name as the one you want to modify: `rails g model User --migration=false`
-and inherit from the original:
+Create a model with the same name as the one you want to modify by running: `rails g model User --migration=false` inside your extension's directory
+and edit it to inherit from the original:
 
 ```ruby
 # app/models/chili_social/user.rb
@@ -75,7 +90,7 @@ module ChiliSocial
 end
 ```
 
-Access through the namespaced model:
+Access in your overrides/extension views through the namespaced model:
 
 ```erb
 <%= ChiliSocial::User.first.likes %>
@@ -91,23 +106,6 @@ Add files as usual in `app/assets/chili_social/javascripts|stylesheets` and inje
 <!-- insert_bottom 'head' -->
 <%= stylesheet_link_tag 'chili_social/application' %>
 <%= javascript_include_tag 'chili_social/application' %>
-```
-
-## Releasing to production
-
-Once your chili extension is ready to be released all you have to do is push the repo somewhere, 
-add the extension to the Gemfile of the app you are releasing it to:
-
-```ruby
-gem 'chili_social', git: 'git@github.com:githubuser/chili_social.git'
-```
-
-...and bundle and install any migrations (just like any other engine):
-
-``` 
-$ bundle
-$ rake chili_social:migrations:install
-$ rake db:migrate
 ```
 
 ## Gotchas
