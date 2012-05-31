@@ -18,6 +18,8 @@ if main_app_git_repo.present?
   append_to_file "main_app/Gemfile", "gem '#{app_path}', path: '../' # git: '...'"
 end
 
+# Run bundler for main app
+run "bundle --gemfile=#{destination_root}/main_app/Gemfile"
 
 # Uses Chili::ApplicationController and the layout from the main app
 remove_dir "app/controllers/#{app_path}"
