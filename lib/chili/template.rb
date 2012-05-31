@@ -14,12 +14,13 @@ if main_app_git_repo.present?
   run "cd #{destination_root} && git init"
   run "cd #{destination_root} && git submodule add #{main_app_git_repo}  main_app"
 
-  # Add gem to main app Gemfile
-  append_to_file "main_app/Gemfile", "gem '#{app_path}', path: '../' # git: '...'"
 end
 
+# Add gem to main app Gemfile
+append_to_file "../Gemfile", "gem '#{app_path}', path: 'vendor/#{app_path}'"
+
 # Run bundler for main app
-run "bundle --gemfile=#{destination_root}/main_app/Gemfile"
+# run "bundle --gemfile=#{destination_root}/main_app/Gemfile"
 
 # Uses Chili::ApplicationController and the layout from the main app
 remove_dir "app/controllers/#{app_path}"
@@ -31,16 +32,16 @@ remove_file 'Gemfile'
 
 # Replace Rakefile
 remove_file 'Rakefile'
-create_file 'Rakefile' do <<-RUBY
-#!/usr/bin/env rake
-APP_RAKEFILE = File.expand_path("../main_app/Rakefile", __FILE__)
-require 'chili/tasks'
-RUBY
-end
+#create_file 'Rakefile' do <<-RUBY
+##!/usr/bin/env rake
+#APP_RAKEFILE = File.expand_path("../main_app/Rakefile", __FILE__)
+#require 'chili/tasks'
+#RUBY
+#end
 
 # Add Chili commands to rails script
-inject_into_file "script/rails","APP_PATH = File.expand_path('../../main_app/config/application',  __FILE__)\n", before: "\nrequire 'rails/all'"
-gsub_file "script/rails", 'rails/engine/commands', 'chili/commands'
+#inject_into_file "script/rails","APP_PATH = File.expand_path('../../main_app/config/application',  __FILE__)\n", before: "\nrequire 'rails/all'"
+#gsub_file "script/rails", 'rails/engine/commands', 'chili/commands'
 
 # Remove jquery stuff from application.js
 gsub_file "app/assets/javascripts/#{app_path}/application.js", "//= require jquery_ujs\n", ''
@@ -56,27 +57,27 @@ end
 
 # Setup rspec
 remove_dir 'test'
-create_file 'spec/spec_helper.rb' do <<-RUBY
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../main_app/config/environment", __FILE__)
-require 'rspec/rails'
-require 'rspec/autorun'
+#create_file 'spec/spec_helper.rb' do <<-RUBY
+#ENV["RAILS_ENV"] ||= 'test'
+#require File.expand_path("../../main_app/config/environment", __FILE__)
+#require 'rspec/rails'
+#require 'rspec/autorun'
 
-ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
+#ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories in both main app and the extension.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f }
-Dir[File.join(ENGINE_RAILS_ROOT, "spec/support/**/*.rb")].each {|f| require f }
-RUBY
-end
+## Requires supporting ruby files with custom matchers and macros, etc,
+## in spec/support/ and its subdirectories in both main app and the extension.
+#Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f }
+#Dir[File.join(ENGINE_RAILS_ROOT, "spec/support/**/*.rb")].each {|f| require f }
+#RUBY
+#end
 
-append_to_file 'Rakefile' do <<-RUBY
+#append_to_file 'Rakefile' do <<-RUBY
 
-# Default rake task to rspec
-task default: 'app:spec'
-RUBY
-end
+## Default rake task to rspec
+#task default: 'app:spec'
+#RUBY
+#end
 
 inject_into_file "lib/#{app_path}/engine.rb", :after => " g.scaffold_controller :chili\n" do <<-RUBY
       g.test_framework :rspec, view_specs: false, routing_specs: false, controller_specs: false
