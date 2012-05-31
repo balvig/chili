@@ -13,7 +13,7 @@ describe 'Chili Binary' do
     end
 
     it 'creates a new extension with a correct file structure' do
-      `cd #{app_path} && #{chili} template`
+      `cd #{app_path} && #{chili} new template`
 
       Dir.glob(File.join(template_path, "**/*")).reject { |f| File.directory?(f) }.each do |source|
         result = File.join(app_path, 'vendor/chili_template', source.sub(template_path, ''))

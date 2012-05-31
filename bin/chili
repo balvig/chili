@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
 template_file = File.join(File.dirname(__FILE__), '..', 'lib', 'chili', 'template.rb')
-system "rails plugin new vendor/chili_#{ARGV.first} --mountable -m #{template_file}"
+system "rails plugin new vendor/chili_#{ARGV.last} --mountable -m #{template_file}"
