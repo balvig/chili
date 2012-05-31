@@ -15,7 +15,7 @@ First add chili to your app's Gemfile:
 gem 'chili'
 ```
 
-...and run `bundle`.
+and run `bundle`.
 
 ## Usage
 
@@ -26,7 +26,7 @@ Chili extensions are like mini apps that are created inside your main app's vend
 As an example, assuming you want to add a new extension named "social" that exposes a new social feature in the form of a like-button
 to a subset of users, first run within your main app:
 
-    $ chili social
+    $ chili new social
 
 This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
 
@@ -34,7 +34,7 @@ This is basically a shortcut for running the `rails plugin new` engine generator
 2. Add a reference to the extension to the main app gemfile
 
 Since the extension is mounted as a gem you'll have to run `bundle`
-after this.
+after this to start using the extension.
 
 ### Define who can see the extension
 
@@ -63,14 +63,13 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 
 ### Adding new resources
 
-Go to the extension's directory and use `rails g scaffold Like` as usual when using engines. The new resource will be namespaced to ChiliSocial::Like
+Go to the extension's directory and use `rails g scaffold Like`. The new resource will be namespaced to ChiliSocial::Like
 and automounted in the main app at `/chili/social/likes`, but only accessible when active_if is true.
-All the rules for using [engine-based models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
-
+All the rules for using [isolated engine models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
 
 ### Migrations
 
-Migrations are handled exactly the same way as engines. Use the
+Migrations are handled the same way as engines. Use the
 following commands after you've added a new migration to your extension:
 
     $ rake chili_social:migrations:install
