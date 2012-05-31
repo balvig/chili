@@ -98,7 +98,7 @@ Access in your overrides/extension views through the namespaced model:
 
 ### Stylesheets/javascripts
 
-Files added to `app/assets/chili_social/javascripts|stylesheets` are automatically injected into the layout using a pre-generated override:
+Files added to the extension's `app/assets/chili_social/javascripts|stylesheets` directory are automatically injected into the layout using a pre-generated override:
 
 ```erb
 <% # app/overrides/layouts/application/assets.html.erb.deface %>
