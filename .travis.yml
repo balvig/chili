@@ -3,3 +3,6 @@ script: "rake app:db:setup && rake app:db:test:prepare && rake"
 rvm:
   - 1.9.2
   - 1.9.3
+branches:
+  only:
+  - travis
