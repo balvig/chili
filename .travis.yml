@@ -1,5 +1,5 @@
 language: ruby
-script: "cd spec/dummy/example && rake:db:migrate && rake db:test:prepare && cd ../../../ && rake"
+script: "rake app:db:setup && rake app:db:test:prepare && rake"
 rvm:
   - 1.9.2
   - 1.9.3
