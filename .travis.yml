@@ -1,0 +1,5 @@
+language: ruby
+script: "cd spec/dummy/example && rake db:test:prepare && cd ../../../ && rake"
+rvm:
+  - 1.9.2
+  - 1.9.3
