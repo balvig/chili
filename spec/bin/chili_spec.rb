@@ -16,9 +16,9 @@ describe 'Chili Binary' do
       `cd #{app_path} && #{chili} new template`
 
       Dir.glob(File.join(template_path, "**/*")).reject { |f| File.directory?(f) }.each do |source|
+        result = File.join(app_path, 'vendor/chili_template', source.sub(template_path, ''))
         puts source
         puts result
-        result = File.join(app_path, 'vendor/chili_template', source.sub(template_path, ''))
         File.open(result, 'rb').read.should == File.open(source, 'rb').read
       end
     end
