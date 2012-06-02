@@ -15,9 +15,13 @@ describe 'Chili Binary' do
     it 'creates a new extension with a correct file structure' do
       `cd #{app_path} && #{chili} new template`
 
-      Dir.glob(File.join(template_path, "**/*")).reject { |f| File.directory?(f) }.each do |source|
-        result = File.join(app_path, 'vendor/chili_template', source.sub(template_path, ''))
-        File.open(result, 'rb').read.should == File.open(source, 'rb').read
+      Dir.glob(File.join(template_path, "**/*")).reject { |f| File.directory?(f) }.each do |template|
+        result = File.join(app_path, 'vendor/chili_template', template.sub(template_path, ''))
+        result_text = File.open(result, 'rb').read
+        template_text = File.open(template, 'rb').read
+        template_text.sub!('GIT_AUTHOR',`git config user.name`.chomp) # Git author is be different on each machine
+        template_text.sub!('GIT_EMAIL',`git config user.email`.chomp) # Git email is be different on each machine
+        result_text.should == template_text
       end
     end
   end
