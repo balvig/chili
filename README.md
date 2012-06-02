@@ -30,7 +30,7 @@ to a subset of users, first run within your main app:
 
 This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
 
-1. Create a the directory vendor/chili_social containing the basic structure for the extension
+1. Create a the directory `vendor/chili_social` containing the basic structure for the extension
 2. Add a reference to the extension to the main app gemfile
 
 Since the extension is mounted as a gem you'll have to run `bundle`
