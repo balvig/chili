@@ -1,16 +1,17 @@
 class ChiliGenerator < Rails::Generators::NamedBase
-  NAME = "chili_#{ARGV[0]}"
-  PATH = "vendor/#{NAME}"
+    NAME = "chili_#{ARGV[0]}"
+    PATH = "vendor/#{NAME}"
 
-  ARGV[0] = PATH
-  ARGV[1] = "--mountable"
-  ARGV[2] = '--skip-test-unit'
-  ARGV[3] = '--skip-bundle'
+  def run_plugin_generator
+    ARGV[0] = PATH
+    ARGV[1] = "--mountable"
+    ARGV[2] = '--skip-test-unit'
+    ARGV[3] = '--skip-bundle'
 
-  require 'rails/generators'
-  require 'rails/generators/rails/plugin_new/plugin_new_generator'
-  Rails::Generators::PluginNewGenerator.start
-
+    require 'rails/generators'
+    require 'rails/generators/rails/plugin_new/plugin_new_generator'
+    Rails::Generators::PluginNewGenerator.start
+  end
 
   def reset_destination_root
     self.destination_root = ''
