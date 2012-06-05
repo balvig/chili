@@ -19,14 +19,14 @@ and run `bundle`.
 
 ## Usage
 
-Chili extensions are like mini apps that are created inside your main app's vendor directory using using the "chili" command.
+Chili extensions are like mini apps that are created inside your main app's vendor directory using using the "chili" generator.
 
 ### Creating a new chili extension
 
 As an example, assuming you want to add a new extension named "social" that exposes a new social feature in the form of a like-button
-to a subset of users, first run within your main app:
+to a subset of users, first within your main app run:
 
-    $ chili new social
+    $ rails g chili social
 
 This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
 

@@ -1,10 +1,9 @@
 require 'spec_helper'
 
-describe 'Chili Binary' do
-  describe 'chili EXTENSION_NAME' do
-    let(:chili) { File.expand_path("../../../bin/chili", __FILE__) }
-    let(:app_path) { File.expand_path("../../dummy/example", __FILE__) }
-    let(:template_path) { File.expand_path("../../dummy/template", __FILE__) }
+describe 'ChiliGenerator' do
+  describe 'rails g chili EXTENSION_NAME' do
+    let(:app_path) { File.expand_path("../../../dummy/example", __FILE__) }
+    let(:template_path) { File.expand_path("../../../dummy/template", __FILE__) }
 
     before do
       FileUtils.rm_rf File.join(app_path, 'vendor/chili_template')
@@ -13,7 +12,7 @@ describe 'Chili Binary' do
     end
 
     it 'creates a new extension with a correct file structure' do
-      `cd #{app_path} && #{chili} new template`
+      puts `cd #{app_path} && rails g chili template`
 
       Dir.glob(File.join(template_path, "**/*")).reject { |f| File.directory?(f) }.each do |template|
         result = File.join(app_path, 'vendor/chili_template', template.sub(template_path, ''))
