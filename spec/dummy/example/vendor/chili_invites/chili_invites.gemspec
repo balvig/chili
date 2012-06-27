@@ -1,17 +1,17 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "chili_template/version"
+require "chili_invites/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "chili_template"
-  s.version     = ChiliTemplate::VERSION
-  s.authors     = ["GIT_AUTHOR"]
-  s.email       = ["GIT_EMAIL"]
+  s.name        = "chili_invites"
+  s.version     = ChiliInvites::VERSION
+  s.authors     = ["Jens Balvig"]
+  s.email       = ["jens@cookpad.com"]
   s.homepage    = ""
-  s.summary     = "Summary of ChiliTemplate."
-  s.description = "Description of ChiliTemplate."
+  s.summary     = "Summary of ChiliInvites."
+  s.description = "Description of ChiliInvites."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 

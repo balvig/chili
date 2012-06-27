@@ -27,3 +27,12 @@ feature 'Togglable controllers' do
     page.should have_content('Your Likes')
   end
 end
+
+feature 'Multiple chili extensions' do
+  scenario 'multiple overrides do not redefine each other' do
+    User.create!(admin: true)
+    visit('/posts')
+    page.should have_content('Like functionality is in beta')
+    page.should have_content('Invite functionality is also in beta')
+  end
+end
