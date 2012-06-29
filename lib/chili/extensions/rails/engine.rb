@@ -1,7 +1,7 @@
 class Rails::Engine
   def self.automount!(path = nil)
     engine = self
-    path ||= engine.parent.to_s.underscore.sub('_','/')
+    path ||= 'chili/' + engine.parent.to_s.underscore
     Rails.application.routes.draw do
       mount engine => path
     end

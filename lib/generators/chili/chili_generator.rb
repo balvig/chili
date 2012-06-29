@@ -1,6 +1,6 @@
 class ChiliGenerator < Rails::Generators::NamedBase
-    NAME = "chili_#{ARGV[0]}"
-    PATH = "vendor/#{NAME}"
+    NAME = "#{ARGV[0]}_ext"
+    PATH = "vendor/chili/#{NAME}"
 
   def run_plugin_generator
     ARGV[0] = PATH
@@ -27,7 +27,7 @@ class ChiliGenerator < Rails::Generators::NamedBase
   end
 
   def add_gem_to_main_gemfile
-    append_to_file "../../Gemfile", "gem '#{NAME}', path: '#{PATH}'"
+    append_to_file "../../../Gemfile", "gem '#{NAME}', path: '#{PATH}'"
   end
 
   def remove_unused_files
