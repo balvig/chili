@@ -57,7 +57,7 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 
 ```erb
 <% # app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) %>
-<!-- insert_bottom 'tr' -->
+<!-- insert_bottom 'tr' namespaced -->
 <td><%= link_to 'Like!', chili_social.likes_path(like: {post_id: post}), method: :post %></td>
 ```
 
@@ -102,7 +102,7 @@ Files added to the extension's `app/assets/chili_social/javascripts|stylesheets`
 
 ```erb
 <% # app/overrides/layouts/application/assets.html.erb.deface %>
-<!-- insert_bottom 'head' -->
+<!-- insert_bottom 'head' namespaced -->
 <%= stylesheet_link_tag 'chili_social/application' %>
 <%= javascript_include_tag 'chili_social/application' %>
 ```

@@ -1,2 +1,2 @@
-<!-- insert_after '#posts' -->
+<!-- insert_after '#posts' namespaced -->
 <p class='disclaimer'>Invite functionality is also in beta</p>

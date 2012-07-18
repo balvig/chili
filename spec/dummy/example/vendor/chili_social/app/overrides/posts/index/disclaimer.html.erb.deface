@@ -1,2 +1,2 @@
-<!-- insert_after '#posts' -->
+<!-- insert_after '#posts' namespaced -->
 <p class='disclaimer'>Like functionality is in beta</p>
