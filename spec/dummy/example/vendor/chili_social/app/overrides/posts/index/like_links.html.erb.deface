@@ -1,2 +1,0 @@
-<!-- insert_before '#posts' namespaced -->
-<%= link_to 'See Your Likes', chili_social.likes_path %>

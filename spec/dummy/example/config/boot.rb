@@ -8,5 +8,5 @@ if File.exist?(gemfile)
 end
 
 $:.unshift File.expand_path('../../../../../lib', __FILE__)
-$:.unshift File.expand_path('../../vendor/chili_social/lib', __FILE__)
-$:.unshift File.expand_path('../../vendor/chili_invites/lib', __FILE__)
+$:.unshift File.expand_path('../../vendor/chili/social_ext/lib', __FILE__)
+$:.unshift File.expand_path('../../vendor/chili/invites_ext/lib', __FILE__)

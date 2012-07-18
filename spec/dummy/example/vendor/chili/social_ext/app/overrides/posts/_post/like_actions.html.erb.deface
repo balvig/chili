@@ -1,0 +1,6 @@
+<!-- insert_bottom 'tr' namespaced -->
+<% post.becomes(SocialExt::Post).tap do |post| %>
+  <td><%= link_to 'Like!', chili_social.likes_path(like: {post_id: post}), method: :post %></td>
+  <td><%= pluralize post.likes.size, 'like' %></td>
+  <td><%= post.well_liked? ? 'This post is well liked!' : 'This post is boring...' %></td>
+<% end %>

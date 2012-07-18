@@ -13,15 +13,15 @@
 
 ActiveRecord::Schema.define(:version => 20120513032032) do
 
-  create_table "chili_social_likes", :force => true do |t|
-    t.integer  "post_id"
-    t.integer  "user_id"
+  create_table "posts", :force => true do |t|
+    t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "posts", :force => true do |t|
-    t.string   "title"
+  create_table "social_ext_likes", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

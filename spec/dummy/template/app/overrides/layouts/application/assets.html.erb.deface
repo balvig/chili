@@ -1,3 +1,0 @@
-<!-- insert_bottom 'head' -->
-<%= stylesheet_link_tag 'chili_template/application' %>
-<%= javascript_include_tag 'chili_template/application' %>

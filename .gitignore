@@ -16,7 +16,7 @@ spec/dummy/example/db/*.sqlite3
 spec/dummy/example/log/*.log
 spec/dummy/example/tmp/
 spec/dummy/example/.sass-cache
-spec/dummy/example/vendor/chili_template
+spec/dummy/example/vendor/chili/template_ext
 spec/dummy/example/Gemfile
 tmp
 .DS_Store
