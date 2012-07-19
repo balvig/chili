@@ -57,7 +57,6 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 
 ```erb
 <% # app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) %>
-<!-- insert_bottom 'tr' namespaced -->
 <!-- insert_bottom 'tr' -->
 <td><%= link_to 'Like!', social_ext.likes_path(like: {post_id: post}), method: :post %></td>
 ```
@@ -103,7 +102,7 @@ Files added to the extension's `app/assets/social_ext/javascripts|stylesheets` d
 
 ```erb
 <% # app/overrides/layouts/application/assets.html.erb.deface %>
-<!-- insert_bottom 'head' namespaced -->
+<!-- insert_bottom 'head' -->
 <%= stylesheet_link_tag 'social_ext/application' %>
 <%= javascript_include_tag 'social_ext/application' %>
 ```

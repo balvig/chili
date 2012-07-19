@@ -1,3 +1,3 @@
-<!-- insert_bottom 'head' namespaced -->
+<!-- insert_bottom 'head' -->
 <%= stylesheet_link_tag 'template_ext/application' %>
 <%= javascript_include_tag 'template_ext/application' %>

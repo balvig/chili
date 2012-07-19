@@ -83,7 +83,7 @@ class ChiliGenerator < Rails::Generators::NamedBase
   def add_dummy_override
     example_file_path = "app/overrides/layouts/application/example.html.erb.deface"
     create_file example_file_path do <<-RUBY
-<!-- insert_bottom 'body' namespaced -->
+<!-- insert_bottom 'body' -->
 <div style='background: #FFF;text-align: center; padding: 4px 0;position: fixed;width: 100%;z-index: 9999;top: 0;'>
   #{NAME} active - edit/remove this file:<br/>
   <strong>#{PATH}/#{example_file_path}</strong><br/>
@@ -95,7 +95,7 @@ class ChiliGenerator < Rails::Generators::NamedBase
 
   def add_assets_override
     create_file 'app/overrides/layouts/application/assets.html.erb.deface' do <<-RUBY
-<!-- insert_bottom 'head' namespaced -->
+<!-- insert_bottom 'head' -->
 <%= stylesheet_link_tag '#{NAME}/application' %>
 <%= javascript_include_tag '#{NAME}/application' %>
     RUBY

@@ -1,4 +1,4 @@
-<!-- insert_bottom 'body' namespaced -->
+<!-- insert_bottom 'body' -->
 <div style='background: #FFF;text-align: center; padding: 4px 0;position: fixed;width: 100%;z-index: 9999;top: 0;'>
   template_ext active - edit/remove this file:<br/>
   <strong>vendor/chili/template_ext/app/overrides/layouts/application/example.html.erb.deface</strong><br/>
