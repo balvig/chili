@@ -2,7 +2,7 @@ Description:
     Generate a new chili extension
 
 Example:
-    rails generate chili social
+    rails generate chili:extension social
 
     This will create:
-        basic extension structure in vendor/chili_social
+        basic extension structure in vendor/chili/social_extension
