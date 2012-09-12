@@ -26,11 +26,11 @@ Chili extensions are like mini apps that are created inside your main app's vend
 As an example, assuming you want to add a new extension named "social" that exposes a new feature in the form of a like-button
 to a subset of users, first within your main app run:
 
-    $ rails g chili social
+    $ rails g chili:extension social
 
 This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
 
-1. Create a the directory `vendor/chili/social_ext` containing the basic structure for the extension
+1. Create a the directory `vendor/chili/social_extension` containing the basic structure for the extension
 2. Add a reference to the extension to the main app gemfile
 
 Since the extension is mounted as a gem you'll have to run `bundle`
@@ -38,12 +38,12 @@ after this to start using the extension.
 
 ### Define who can see the extension
 
-Use the active_if block to control whether new controllers/overrides are visible or not.
+Use the active_if block to control whether new the extension is visible or not.
 The context of the active_if block is the application controller so you can use any methods available to that.
 
 ```ruby
-# lib/social_ext.rb
-module SocialExt
+# lib/social_extension.rb
+module SocialExtension
   extend Chili::Activatable
   active_if { logged_in? && current_user.admin? } # Extension is only visible to logged in admin users
 end
@@ -58,13 +58,13 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 ```erb
 <% # app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) %>
 <!-- insert_bottom 'tr' -->
-<td><%= link_to 'Like!', social_ext.likes_path(like: {post_id: post}), method: :post %></td>
+<td><%= link_to 'Like!', social_extension.likes_path(like: {post_id: post}), method: :post %></td>
 ```
 
 ### Adding new resources
 
 Go to the extension's directory and use `rails g scaffold Like`. The new resource will be namespaced to SocialExt::Like
-and automounted in the main app at `/chili/social_ext/likes`, but only accessible when active_if is true.
+and automounted in the main app at `/chili/social_extension/likes`, but only accessible when active_if is true.
 All the rules for using [isolated engine models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
 
 ### Migrations
@@ -72,7 +72,7 @@ All the rules for using [isolated engine models](http://railscasts.com/episodes/
 Migrations are handled the same way as engines. Use the
 following commands after you've added a new migration to your extension:
 
-    $ rake social_ext:migrations:install
+    $ rake social_extension:migrations:install
     $ rake db:migrate
 
 ### Modifying existing models
@@ -81,8 +81,8 @@ Create a model with the same name as the one you want to modify by running: `rai
 and edit it to inherit from the original:
 
 ```ruby
-# app/models/social_ext/user.rb
-module SocialExt
+# app/models/social_extension/user.rb
+module SocialExtension
   class User < ::User
     has_many :likes
   end
@@ -92,19 +92,19 @@ end
 Access in your overrides/extension views through the namespaced model:
 
 ```erb
-<%= SocialExt::User.first.likes %>
-<%= current_user.becomes(SocialExt::User).likes %>
+<%= SocialExtension::User.first.likes %>
+<%= current_user.becomes(SocialExtension::User).likes %>
 ```
 
 ### Stylesheets/javascripts
 
-Files added to the extension's `app/assets/social_ext/javascripts|stylesheets` directory are automatically injected into the layout using a pre-generated override:
+Files added to the extension's `app/assets/social_extension/javascripts|stylesheets` directory are automatically injected into the layout using a pre-generated override:
 
 ```erb
 <% # app/overrides/layouts/application/assets.html.erb.deface %>
 <!-- insert_bottom 'head' -->
-<%= stylesheet_link_tag 'social_ext/application' %>
-<%= javascript_include_tag 'social_ext/application' %>
+<%= stylesheet_link_tag 'social_extension/application' %>
+<%= javascript_include_tag 'social_extension/application' %>
 ```
 
 If you don't need any css/js in your extension, you can remove this file.
