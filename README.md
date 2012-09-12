@@ -38,7 +38,7 @@ after this to start using the extension.
 
 ### Define who can see the extension
 
-Use the active_if block to control whether new the extension is visible or not.
+Use the active_if block to control whether new the extension is active for each user.
 The context of the active_if block is the application controller so you can use any methods available to that.
 
 ```ruby
@@ -51,7 +51,7 @@ end
 
 ### Modifying view templates in main app
 
-Chili uses deface to modify existing view templates (see [deface docs](https://github.com/railsdog/deface#using-the-deface-dsl-deface-files) for details)
+Chili uses deface to dynamically modify existing view templates (see [deface docs](https://github.com/railsdog/deface#using-the-deface-dsl-deface-files) for details)
 Add overrides to the `app/overides` directory mirroring the path of the view you want to modify.
 For example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
 
@@ -63,7 +63,7 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 
 ### Adding new resources
 
-Go to the extension's directory and use `rails g scaffold Like`. The new resource will be namespaced to SocialExt::Like
+Run `rails g scaffold Like` within the extension's directory. The new resource will be namespaced to SocialExtension::Like
 and automounted in the main app at `/chili/social_extension/likes`, but only accessible when active_if is true.
 All the rules for using [isolated engine models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
 
