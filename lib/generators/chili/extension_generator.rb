@@ -29,7 +29,7 @@ module Chili
       end
 
       def add_gem_to_main_gemfile
-        append_to_file "../../../Gemfile", "gem '#{NAME}', path: '#{PATH}'"
+        append_to_file "../../../Gemfile", "gem '#{NAME}', path: '#{PATH}'\n"
       end
 
       def remove_unused_files
