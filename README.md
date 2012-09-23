@@ -9,11 +9,10 @@ while leaving the main code untouched.
 
 ## Installation
 
-First add Chili and Deface to your app's Gemfile:
+First add Chili to your app's Gemfile:
 
 ```ruby
 gem 'chili'
-gem 'deface', github: 'railsdog/deface'
 ```
 
 and run `bundle`.
