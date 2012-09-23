@@ -77,7 +77,7 @@ module Chili
       def include_active_if
         inject_into_file "lib/#{NAME}.rb", :after => "module #{NAME.camelcase}\n" do <<-RUBY
   extend Chili::Activatable
-  active_if { logged_in? }
+  active_if { true } # edit this to activate/deactivate extension at runtime
         RUBY
         end
       end
