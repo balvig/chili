@@ -17,6 +17,7 @@ spec/dummy/example_app/log/*.log
 spec/dummy/example_app/tmp/
 spec/dummy/example_app/.sass-cache
 spec/dummy/example_app/vendor/chili/blank_extension
+spec/dummy/example_app/vendor/chili/another_blank_extension
 spec/dummy/example_app/Gemfile
 tmp
 .DS_Store

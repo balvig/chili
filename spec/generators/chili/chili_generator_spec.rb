@@ -8,8 +8,15 @@ describe 'ChiliGenerator' do
 
     before do
       FileUtils.rm_rf File.join(app_path, 'vendor/chili/blank_extension')
+      FileUtils.rm_rf File.join(app_path, 'vendor/chili/another_blank_extension')
       FileUtils.rm_rf gemfile
-      FileUtils.touch gemfile
+      File.open(gemfile, 'w') do |f|
+        f.write <<-RUBY
+group :development do
+  gem 'somegem'
+end
+        RUBY
+      end
     end
 
     it 'creates a new extension with a correct file structure and appends it to the gemfile' do
@@ -23,9 +30,24 @@ describe 'ChiliGenerator' do
         template_text.sub!('GIT_EMAIL',`git config user.email`.chomp) # Git email is different on each machine
         result_text.should == template_text
       end
-
-      File.open(gemfile, 'rb').read.should == "gem 'blank_extension', path: 'vendor/chili/blank_extension'"
-
     end
+
+    it "appends new extensions to the chili group within the gemfile" do
+      puts `cd #{app_path} && rails g chili:extension blank`
+      File.open(gemfile, 'rb').read.should include <<-RUBY.chomp
+group :chili do
+  gem 'blank_extension', path: 'vendor/chili/blank_extension'
+end
+    RUBY
+
+      puts `cd #{app_path} && rails g chili:extension another_blank`
+      File.open(gemfile, 'rb').read.should include <<-RUBY.chomp
+group :chili do
+  gem 'another_blank_extension', path: 'vendor/chili/another_blank_extension'
+  gem 'blank_extension', path: 'vendor/chili/blank_extension'
+end
+    RUBY
+    end
+
   end
 end
