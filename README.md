@@ -28,12 +28,12 @@ to a subset of users, first within your main app run:
 
     $ rails g chili:extension social
 
-This is basically a shortcut for running the `rails plugin new` engine generator with a custom template and will:
+This will:
 
-1. Create a the directory `vendor/chili/social_extension` containing the basic structure for the extension
+1. Create the directory `vendor/chili/social_extension` containing the basic structure for the extension
 2. Add a reference to the extension to the main app gemfile
 
-Since the extension is mounted as a gem you'll have to restart the app to start using the extension.
+Since the extension is mounted as a gem you'll have to restart the app.
 
 ### Define who can see the extension
 
