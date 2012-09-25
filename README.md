@@ -62,9 +62,9 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 
 ### Adding new resources
 
-Run `rails g scaffold Like` within the extension's directory. The new resource will be namespaced to `SocialExtension::Like`
-and automounted in the main app at `/chili/social_extension/likes`, but only accessible when active_if is true.
-All the rules for using [isolated engine models](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) apply.
+Run `rails g scaffold Like` from within the extension's directory. The new resource will be namespaced to `SocialExtension::Like`
+and automounted as an [isolated engine](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) in the main app at `/chili/social_extension/likes`, 
+but will only be accessible when active_if is true.
 
 ### Migrations
 
