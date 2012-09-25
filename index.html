@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Chili by balvig</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Chili</h1>
+        <p>The spicy extension framework for Rails</p>
+
+        <p class="view"><a href="https://github.com/balvig/chili">View the Project on GitHub <small>balvig/chili</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/balvig/chili/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/balvig/chili/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/balvig/chili">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Chili</h1>
+
+<p>Have you ever wanted to test out a new feature on only a subset of users?
+Did that implementation end up being lots of if/else statements embedded in the main code?
+If so, Chili can help.</p>
+
+<p>Chili is built on top of Rails Engines and Deface and allows you to conditionally add new/modify existing views, while leaving the main code untouched.</p>
+
+<h2>Installation</h2>
+
+<p>First add Chili to your app's Gemfile:</p>
+
+<div class="highlight"><pre><span class="n">gem</span> <span class="s1">'chili'</span>
+</pre></div>
+
+<p>and run <code>bundle</code>.</p>
+
+<h2>Usage</h2>
+
+<p>The easiest way to explain how Chili works is through an example. Lets say we have a site were people can submit posts about their travel experiences:</p>
+
+<p>It is hard to tell which posts are interesting so we decide to test out a new "Like" feature where users can like certain posts and see which are popular. </p>
+
+<p>Want to test out this feature only for a set of beta testers </p>
+
+<p>One way of doing it would be something like this:</p>
+
+<div class="highlight"><pre><span class="cp">&lt;%</span> <span class="c1"># posts/_post.html.erb </span><span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">&lt;tr&gt;                                                                                                                                                                                                                                                                                                                      </span>
+<span class="x">  &lt;td&gt;</span><span class="cp">&lt;%=</span> <span class="n">post</span><span class="o">.</span><span class="n">title</span> <span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">  </span><span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">logged_in?</span> <span class="o">&amp;&amp;</span> <span class="n">current_user</span><span class="o">.</span><span class="n">beta_tester?</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">    &lt;td&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">'Like!'</span><span class="p">,</span> <span class="n">likes_path</span><span class="p">(</span><span class="n">like</span><span class="p">:</span> <span class="p">{</span><span class="n">post_id</span><span class="p">:</span> <span class="n">post</span><span class="p">}),</span> <span class="nb">method</span><span class="p">:</span> <span class="ss">:post</span> <span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">  </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">&lt;/tr&gt; </span>
+</pre></div>
+
+<p>However, adding conditionals in the code like this can quickly become unmaintainable as more features are added and removing them from the main code is also a pain should we decide not to release the feature after all. Also, what about the likes_controller? How do we make sure that non-beta testers can't access this?</p>
+
+<p>Chili extensions are like mini apps that are created inside your main app's vendor directory using using the "chili" generator.</p>
+
+<h3>Creating a new chili extension</h3>
+
+<p>As an example, assuming you want to add a new extension named "social" that exposes a new feature in the form of a like-button
+to a subset of users, first within your main app run:</p>
+
+<pre><code>$ rails g chili:extension social
+</code></pre>
+
+<p>This will:</p>
+
+<ol>
+<li>Create the directory <code>vendor/chili/social_extension</code> containing the basic structure for the extension</li>
+<li>Add a reference to the extension to the main app gemfile</li>
+</ol><p>Since the extension is mounted as a gem you'll have to restart the app.</p>
+
+<h3>Define who can see the extension</h3>
+
+<p>Use the active_if block to control whether new the extension is active for each user.
+The context of the active_if block is the application controller so you can use any methods available to that.</p>
+
+<div class="highlight"><pre><span class="c1"># lib/social_extension.rb</span>
+<span class="k">module</span> <span class="nn">SocialExtension</span>
+  <span class="kp">extend</span> <span class="no">Chili</span><span class="o">::</span><span class="no">Activatable</span>
+  <span class="n">active_if</span> <span class="p">{</span> <span class="n">logged_in?</span> <span class="o">&amp;&amp;</span> <span class="n">current_user</span><span class="o">.</span><span class="n">admin?</span> <span class="p">}</span> <span class="c1"># Extension is only visible to logged in admin users</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>Modifying view templates in main app</h3>
+
+<p>Chili uses Deface to dynamically modify existing view templates (see <a href="https://github.com/railsdog/deface#using-the-deface-dsl-deface-files">Deface docs</a> for details)
+Add overrides to the <code>app/overides</code> directory mirroring the path of the view you want to modify.
+For example, assuming the main app has the partial <code>app/views/posts/_post.html.erb</code>:</p>
+
+<div class="highlight"><pre><span class="cp">&lt;%</span> <span class="c1"># app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) </span><span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">&lt;!-- insert_bottom 'tr' --&gt;</span>
+<span class="x">&lt;td&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">'Like!'</span><span class="p">,</span> <span class="n">social_extension</span><span class="o">.</span><span class="n">likes_path</span><span class="p">(</span><span class="n">like</span><span class="p">:</span> <span class="p">{</span><span class="n">post_id</span><span class="p">:</span> <span class="n">post</span><span class="p">}),</span> <span class="nb">method</span><span class="p">:</span> <span class="ss">:post</span> <span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+</pre></div>
+
+<h3>Adding new resources</h3>
+
+<p>Run <code>rails g scaffold Like</code> from within the extension's directory. The new resource will be namespaced to <code>SocialExtension::Like</code>
+and automounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_extension/likes</code>, 
+but will only be accessible when active_if is true.</p>
+
+<h3>Migrations</h3>
+
+<p>Migrations are handled the same way as engines. Use the
+following commands after you've added a new migration to your extension:</p>
+
+<pre><code>$ rake social_extension:migrations:install
+$ rake db:migrate
+</code></pre>
+
+<h3>Modifying existing models</h3>
+
+<p>Create a model with the same name as the one you want to modify by running: <code>rails g model User --migration=false</code> inside your extension's directory
+and edit it to inherit from the original:</p>
+
+<div class="highlight"><pre><span class="c1"># app/models/social_extension/user.rb</span>
+<span class="k">module</span> <span class="nn">SocialExtension</span>
+  <span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="o">::</span><span class="no">User</span>
+    <span class="n">has_many</span> <span class="ss">:likes</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>Access in your overrides/extension views through the namespaced model:</p>
+
+<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="no">SocialExtension</span><span class="o">::</span><span class="no">User</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">likes</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="cp">&lt;%=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">becomes</span><span class="p">(</span><span class="no">SocialExtension</span><span class="o">::</span><span class="no">User</span><span class="p">)</span><span class="o">.</span><span class="n">likes</span> <span class="cp">%&gt;</span><span class="x"></span>
+</pre></div>
+
+<h3>Stylesheets/javascripts</h3>
+
+<p>Files added to the extension's <code>app/assets/social_extension/javascripts|stylesheets</code> directory are automatically injected into the layout using a pre-generated override:</p>
+
+<div class="highlight"><pre><span class="cp">&lt;%</span> <span class="c1"># app/overrides/layouts/application/assets.html.erb.deface </span><span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">&lt;!-- insert_bottom 'head' --&gt;</span>
+<span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span> <span class="s1">'social_extension/application'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">'social_extension/application'</span> <span class="cp">%&gt;</span><span class="x"></span>
+</pre></div>
+
+<p>If you don't need any css/js in your extension, you can remove this file.</p>
+
+<h2>Gotchas</h2>
+
+<ul>
+<li>Chili will not be able to automount if you use a catch-all route in your main app (ie <code>match '*a', to: 'errors#routing'</code>), you will have to remove the catch-all or manually add the engine to the main app's routes file.</li>
+<li>Just like normal engines, Chili requires you to prepend path helpers with <code>main_app</code> (ie <code>main_app.root_path</code> etc) in view templates that are shared with the main app (such as the main app's application layout file).</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/balvig">balvig</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
