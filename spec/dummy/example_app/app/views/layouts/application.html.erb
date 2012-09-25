@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<% if logged_in? %>
+  Hi <%= current_user.name %>. <%= button_to 'Log out', main_app.session_path, method: 'delete' %>
+<% else %>
+  <%= link_to "Log in", main_app.new_session_path %>
+<% end %>
+
 <%= yield %>
 
 </body>
