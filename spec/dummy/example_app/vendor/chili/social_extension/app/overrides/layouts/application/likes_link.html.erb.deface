@@ -1,2 +1,2 @@
-<!-- insert_before '#posts' -->
+<!-- insert_after '.user' -->
 <%= link_to 'See Your Likes', social_extension.likes_path %>

@@ -12,8 +12,8 @@ pre {
   font-size: 11px;
 }
 
-a { color: #000; }
-a:visited { color: #666; }
+a { color: #4CAEDD; }
+a:visited { color: #4CAEDD; }
 a:hover { color: #fff; background-color:#000; }
 
 div.field, div.actions {
@@ -53,4 +53,40 @@ div.field, div.actions {
 #error_explanation ul li {
   font-size: 12px;
   list-style: square;
+}
+
+header {
+  background:#DDD;
+  padding:8px 6px;
+}
+
+header form, header form div {
+  display: inline;
+}
+
+table {
+  border:1px solid #CCC;
+  border-radius:4px;
+}
+
+th {
+  text-align:left;
+  border-bottom:3px double #CCC;
+}
+
+th, td {
+  padding:0.8em 1.1em;
+  font-size: 1.1em;
+}
+
+.remark {
+  font-weight:normal;
+  font-style:italic;
+  color:#888;
+}
+
+.disclaimer {
+  background: #FFFF8B;
+  padding: 9px;
+  display: inline-block;
 }

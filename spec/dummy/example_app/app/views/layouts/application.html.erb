@@ -3,18 +3,22 @@
 <head>
   <title>Dummy</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application", '//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', 'https://raw.github.com/rails/jquery-ujs/master/src/rails.js' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<% if logged_in? %>
-  Hi <%= current_user.name %>. <%= button_to 'Log out', main_app.session_path, method: 'delete' %>
-<% else %>
-  <%= link_to "Log in", main_app.new_session_path %>
-<% end %>
+<header>
+  <% if logged_in? %>
+    <span class="user">Hi <%= current_user.name %>. </span><%= button_to 'Log out', main_app.session_path, method: 'delete' %>
+  <% else %>
+    <%= link_to "Log in", main_app.new_session_path %>
+  <% end %>
+</header>
 
-<%= yield %>
+<section>
+  <%= yield %>
+</section>
 
 </body>
 </html>
