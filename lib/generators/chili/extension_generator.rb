@@ -29,7 +29,11 @@ module Chili
       end
 
       def add_gem_to_main_gemfile
-        append_to_file "../../../Gemfile", "gem '#{NAME}', path: '#{PATH}'"
+        gemfile =  "../../../Gemfile"
+        group = "group :chili do\n"
+        append_to_file gemfile, group
+        append_to_file gemfile, "  gem '#{NAME}', path: '#{PATH}'\nend", after: group
+        gsub_file gemfile, 'end  gem', '  gem' #nasty cleanup
       end
 
       def remove_unused_files
@@ -75,7 +79,7 @@ module Chili
       end
 
       def include_active_if
-        inject_into_file "lib/#{NAME}.rb", :after => "module #{NAME.camelcase}\n" do <<-RUBY
+        inject_into_file "lib/#{NAME}.rb", after: "module #{NAME.camelcase}\n" do <<-RUBY
   extend Chili::Activatable
   active_if { true } # edit this to activate/deactivate extension at runtime
         RUBY
