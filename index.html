@@ -35,11 +35,10 @@ If so, Chili can help.</p>
 <img src="images/app.png" alt="" />
 
 <p>It is hard to tell which posts are interesting so we decide to test out a new social feature where users can like certain posts and see which are popular. </p>
-<p>We want to first test out this feature on a set of beta testers before deciding whether to release it to everyone.</p>
-<p>One way of doing it would be something like this:</p>
+<p>We want to first test out this feature on a set of beta testers before deciding whether to release it to everyone. One way of doing it would be something like this:</p>
 
 
-<h4>posts/_post.html.erb</h4>
+<h4>app/views/posts/_post.html.erb</h4>
 <pre><code>
 &lt;tr&gt;
   &lt;td&gt;<%= post.title %>&lt;/td&gt;
@@ -49,8 +48,8 @@ If so, Chili can help.</p>
 &lt;/tr&gt;
 </code></pre>
 
-<p>However, adding conditionals in the code like this can quickly become unmaintainable as more features are added. Also, what about the likes_controller? How do we make sure that non-beta testers can't access this?</p>
-<p>Lets try a cleaner approach using Chili</p>
+<p>However, adding conditionals in the code like this can quickly become unmaintainable. And what about the likes_controller? How do we make sure that only beta testers can access this?</p>
+<p>The following steps shows a cleaner approach using Chili.</p>
 
 <h3>Creating a new chili extension</h3>
 
@@ -89,25 +88,24 @@ end
 
 <p>Chili uses Deface overrides to dynamically modify existing view templates (see <a href="https://github.com/railsdog/deface#using-the-deface-dsl-deface-files">Deface docs</a> for details).<br/>
 The message shown is an example of how this works.</p>
-<p>For now, let's remove the example override and add our own. We can start out by adding a disclaimer under the list of posts. Our current posts/index view looks something like this:</p>
+<p>For now, let's remove the example override and add our own. We can start out by adding a 'Like' link next to each post. Our current <code>posts/_post</code> partial looks something like this:</p>
 
-<h4>app/views/posts/index.html.erb</h4>
+<h4>app/views/posts/_post.html.erb</h4>
 <pre><code>
-&lt;table id='posts'&gt;
-  &lt;tr&gt;
-    &lt;th&gt;Title&lt;/th&gt;
-  &lt;/tr&gt;
-  <%= render @posts %>
-&lt;/table&gt;
+&lt;tr&gt;
+  &lt;td&gt;<%= post.title %>&lt;/td&gt;
+&lt;/tr&gt;
 </code></pre>
 
 <p>We can modify this by adding an override to the extension, mirroring the path in the main app:</p>
 
-<h4>vendor/chili/social_extension/app/overrides/posts/index/disclaimer.html.erb.deface</h4>
+<h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
 <pre><code>
-&lt;!-- insert_after '#posts' --&gt;
-&lt;p class='disclaimer'&gt;Like functionality is in beta&lt;/p&gt;
+&lt;!-- insert_bottom 'tr' --&gt;
+&lt;td&gt;<%= link_to 'Like!', '#' %>&lt;/td&gt;
 </code></pre>
+
+<p>Refreshing the page shows the result:</p>
 
 <h3>Define who can see the extension</h3>
 
