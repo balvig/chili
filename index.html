@@ -34,8 +34,8 @@ If so, Chili can help.</p>
 
 <img src="images/app.png" alt="" />
 
-<p>It is hard to tell which posts are interesting so we decide to test out a new social feature where users can like certain posts and see which are popular. </p>
-<p>We want to first test out this feature on a set of beta testers before deciding whether to release it to everyone. One way of doing it would be something like this:</p>
+<p>It is hard to tell which posts are interesting so we decide to test out a new social feature where users can "like" posts and see which are popular. </p>
+<p>We want to first test out this feature on a set of beta testers before deciding whether to release it to everyone.<br/>One way of doing it would be something like this:</p>
 
 
 <h4>app/views/posts/_post.html.erb</h4>
@@ -48,8 +48,7 @@ If so, Chili can help.</p>
 &lt;/tr&gt;
 </code></pre>
 
-<p>However, adding conditionals in the code like this can quickly become unmaintainable. And what about the likes_controller? How do we make sure that only beta testers can access this?</p>
-<p>The following steps shows a cleaner approach using Chili.</p>
+<p>However, adding conditionals in the code like this can quickly become unmaintainable. And what about the likes_controller? How do we make sure that only beta testers can access this?<br/>The following shows a different approach using Chili.</p>
 
 <h3>Creating a new chili extension</h3>
 
@@ -82,13 +81,13 @@ end
 
 <img src="images/example.png" alt="" />
 
-<p>The message at the top is injected into the layout by the extension and shows us that the extension is working!</p>
+<p>The message at the top is injected into the layout by the extension and shows us that it is working!</p>
 
 <h3>Modifying view templates in main app</h3>
 
 <p>Chili uses Deface overrides to dynamically modify existing view templates (see <a href="https://github.com/railsdog/deface#using-the-deface-dsl-deface-files">Deface docs</a> for details).<br/>
 The message shown is an example of how this works.</p>
-<p>For now, let's remove the example override and add our own. We can start out by adding a 'Like' link next to each post. Our current <code>posts/_post</code> partial looks something like this:</p>
+<p>For now, let's remove the example override and add our own. We will start out by adding a 'Like' link next to each post. Our app's <code>posts/_post</code> partial looks like this:</p>
 
 <h4>app/views/posts/_post.html.erb</h4>
 <pre><code>
@@ -97,7 +96,7 @@ The message shown is an example of how this works.</p>
 &lt;/tr&gt;
 </code></pre>
 
-<p>We can modify this by adding an override to the extension, mirroring the path in the main app:</p>
+<p>We can modify this at runtime by adding an override to the extension, mirroring the path in the main app:</p>
 
 <h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
 <pre><code>
@@ -121,7 +120,7 @@ module SocialExtension
 end
 </pre></code>
 
-<p>Now the links will be hidden unless the current user has the beta_tester flag set to true!<br/>
+<p>Now the links will be hidden unless the a user with beta_tester flag set to true logs in.<br/>
 The context of the active_if block is the application controller so you can use any methods available to that.</p>
 
 <h3>Adding new resources</h3>
@@ -129,41 +128,51 @@ The context of the active_if block is the application controller so you can use 
 <p>The like links don't actually do anything yet. Let's add the controller and model code needed to make this work. Navigate to the extension's folder and run:</p>
 
 <pre><code class='bash'>
-$ rails g scaffold Like user:references post:references
+$ rails g scaffold Like post:references
+$ rake social_extension:install:migrations
 $ rake db:migrate
 </code></pre>
 
 <p>The new resource will be namespaced to <code>SocialExtension::Like</code>
-and automatically mounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_extension/likes</code>,
-but will only be accessible when active_if is true.</p>
+and automatically mounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_extension/likes</code></p>
 
-<h3>Migrations</h3>
+<p>We can now modify the override to add the full path to the links:</p>
 
-<p>Migrations are handled the same way as engines. Use the
-following commands after you've added a new migration to your extension:</p>
-
-<pre><code>$ rake social_extension:migrations:install
-$ rake db:migrate
+<h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
+<pre><code>
+&lt;!-- insert_bottom 'tr' --&gt;
+&lt;td&gt;<%= link_to 'Like!', social_extension.likes_path(like: { post_id: post }), method: 'post' %>&lt;/td&gt;
 </code></pre>
+
+<p>Note that since the new resource is added as an isolated engine in the main app you will have to prefix paths with the name of the extension.</p>
 
 <h3>Modifying existing models</h3>
 
-<p>Create a model with the same name as the one you want to modify by running: <code>rails g model User --migration=false</code> inside your extension's directory
-and edit it to inherit from the original:</p>
+<p>It would be nice if we could also see how many likes each post has. We will need to go through the <code>Post</code> model but </p>
+<p>Still inside the extension's folder run:</p>
 
-<div class="highlight"><pre><span class="c1"># app/models/social_extension/user.rb</span>
-<span class="k">module</span> <span class="nn">SocialExtension</span>
-  <span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="o">::</span><span class="no">User</span>
-    <span class="n">has_many</span> <span class="ss">:likes</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
+<pre><code class='bash'>
+$ rails g model Post --migration=false
+</pre></code>
 
-<p>Access in your overrides/extension views through the namespaced model:</p>
+<p>Edit the generated file to make it inherit from the original <code>Post</code> model and add the association:</p>
+<h4>vendor/chili/social_extension/app/models/social_extension/post.rb</h4>
+<pre><code>
+module SocialExtension
+  class Post < ::Post
+    has_many :likes
+  end
+end
+</pre></code>
 
-<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="no">SocialExtension</span><span class="o">::</span><span class="no">User</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">likes</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="cp">&lt;%=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">becomes</span><span class="p">(</span><span class="no">SocialExtension</span><span class="o">::</span><span class="no">User</span><span class="p">)</span><span class="o">.</span><span class="n">likes</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<p>This will now allow you to access the <code>has_many</code> association by going through your the namespaced model:</p>
+
+<h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
+<pre><code>
+&lt;!-- insert_bottom 'tr' --&gt;
+&lt;td&gt;<%= link_to 'Like!', social_extension.likes_path(like: { post_id: post }), method: 'post' %>&lt;/td&gt;
+&lt;td&gt;<%= pluralize post.becomes(SocialExtension::Post).likes.size, 'like' %>&lt;/td&gt;
+</pre></code>
 
 <h3>Stylesheets/javascripts</h3>
 
