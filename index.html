@@ -107,9 +107,11 @@ The message shown is an example of how this works.</p>
 
 <p>Refreshing the page shows the result:</p>
 
+<img src="images/links.png" alt="" />
+
 <h3>Define who can see the extension</h3>
 
-<p>By default a newly generated extension will be active for everyone. Let's change this so that only beta testers can see this new extension by editing the <code>active_if</code> block in <code>lib/social_extension.rb</code></p>
+<p>By default a newly generated extension will be active for everyone. Let's change this so that only beta testers can see the like links by editing the <code>active_if</code> block in <code>lib/social_extension.rb</code></p>
 
 <h4>vendor/chili/social_extension/lib/social_extension.rb</h4>
 <pre><code>
@@ -119,12 +121,20 @@ module SocialExtension
 end
 </pre></code>
 
-<p>The context of the active_if block is the application controller so you can use any methods available to that.</p>
+<p>Now the links will be hidden unless the current user has the beta_tester flag set to true!<br/>
+The context of the active_if block is the application controller so you can use any methods available to that.</p>
 
 <h3>Adding new resources</h3>
 
-<p>Run <code>rails g scaffold Like</code> from within the extension's directory. The new resource will be namespaced to <code>SocialExtension::Like</code>
-and automounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_extension/likes</code>,
+<p>The like links don't actually do anything yet. Let's add the controller and model code needed to make this work. Navigate to the extension's folder and run:</p>
+
+<pre><code class='bash'>
+$ rails g scaffold Like user:references post:references
+$ rake db:migrate
+</code></pre>
+
+<p>The new resource will be namespaced to <code>SocialExtension::Like</code>
+and automatically mounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_extension/likes</code>,
 but will only be accessible when active_if is true.</p>
 
 <h3>Migrations</h3>
