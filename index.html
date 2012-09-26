@@ -20,7 +20,7 @@
       <section>
 
 <h1>Chili<span>The spicy extension framework for Rails</span></h1>
-<a href="https://github.com/balvig/chili"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/balvig/chili"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
 <p>Have you ever wanted to test out a new feature on only a subset of users?
 Did that implementation end up being lots of if/else statements embedded in the main code?
@@ -48,7 +48,8 @@ If so, Chili can help.</p>
 &lt;/tr&gt;
 </code></pre>
 
-<p>However, adding conditionals in the code like this can quickly become unmaintainable. And what about the likes_controller? How do we make sure that only beta testers can access this?<br/>The following shows a different approach using Chili.</p>
+<p>However, adding conditionals in the code like this can quickly become unmaintainable. And what about the likes_controller? How do we make sure that only beta testers can access this?</p>
+<p>Chili makes it easier to do this in a clean and unobtrusive fashion!</p>
 
 <h3>Creating a new chili extension</h3>
 
@@ -81,7 +82,7 @@ end
 
 <img src="images/example.png" alt="" />
 
-<p>The message at the top is injected into the layout by the extension and shows us that it is working!</p>
+<p>The message at the top is injected into the layout by the extension and shows us that it is working.</p>
 
 <h3>Modifying view templates in main app</h3>
 
@@ -121,7 +122,7 @@ end
 </pre></code>
 
 <p>Now the links will be hidden unless the a user with beta_tester flag set to true logs in.<br/>
-The context of the active_if block is the application controller so you can use any methods available to that.</p>
+The context of the <code>active_if</code> block is the <em>application controller</em> so you can use any methods available to that.</p>
 
 <h3>Adding new resources</h3>
 
@@ -133,10 +134,11 @@ $ rake social_extension:install:migrations
 $ rake db:migrate
 </code></pre>
 
-<p>The new resource will be namespaced to <code>SocialExtension::Like</code>
-and automatically mounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_extension/likes</code></p>
+<p>The new resource will be automatically mounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_extension/likes</code>.
+Only when <code>active_if</code> is true is this URL available, otherwise it will return a 404!
+</p>
 
-<p>We can now modify the override to add the full path to the links:</p>
+<p>We can now modify the override and add the full path to the links:</p>
 
 <h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
 <pre><code>
@@ -148,7 +150,8 @@ and automatically mounted as an <a href="http://railscasts.com/episodes/277-moun
 
 <h3>Modifying existing models</h3>
 
-<p>It would be nice if we could also see how many likes each post has. We will need to go through the <code>Post</code> model but we don't want to add the has_many association directly to the main code.</p>
+<p>We now have a working like button, only available to beta users, but it would be nice if we could also see how many likes each post has.</p>
+<p>We will need to go through the <code>Post</code> model but we don't want to add the has_many association directly to the main code.</p>
 <p>Instead we can extend the <code>Post</code> model inside the extension. Inside the extension's folder run:</p>
 
 <pre><code class='bash'>
@@ -178,7 +181,7 @@ end
 
 <img src="images/likes.png" alt="" />
 
-<p>You can also add new methods in this way. Writing <code>becomes</code> each time may get cumbersome so in that case using <code>tap</code> can clean things up:</p>
+<p>You can also add new methods to models in this way. Writing <code>becomes</code> each time may get cumbersome so in that case using <code>tap</code> can clean things up:</p>
 
 <h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
 <pre><code>
@@ -215,9 +218,12 @@ end
 <p>This gives us the final result, only visible to logged in beta users:</p>
 <img src="images/final.png" alt="" />
 
+
+<p>I hope you will give Chili a try and let me know of any bugs/feature requests on <a href="https://github.com/balvig/chili">GitHub</a>!<p>
+
 </section>
       <footer>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p><small><a href="https://github.com/balvig/chili">balvig/chili</a> &mdash; Hosted on GitHub Pages</small></p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
