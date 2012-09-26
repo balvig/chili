@@ -40,8 +40,10 @@ a img {
 }
 
 
-h2 {
+h3 {
   color:#393939;
+  margin-top:40px;
+  margin-bottom:10px;
 }
 
 h3, h4, h5, h6 {

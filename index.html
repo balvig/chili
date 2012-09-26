@@ -148,8 +148,8 @@ and automatically mounted as an <a href="http://railscasts.com/episodes/277-moun
 
 <h3>Modifying existing models</h3>
 
-<p>It would be nice if we could also see how many likes each post has. We will need to go through the <code>Post</code> model but </p>
-<p>Still inside the extension's folder run:</p>
+<p>It would be nice if we could also see how many likes each post has. We will need to go through the <code>Post</code> model but we don't want to add the has_many association directly to the main code.</p>
+<p>Instead we can extend the <code>Post</code> model inside the extension. Inside the extension's folder run:</p>
 
 <pre><code class='bash'>
 $ rails g model Post --migration=false
@@ -165,7 +165,7 @@ module SocialExtension
 end
 </pre></code>
 
-<p>This will now allow you to access the <code>has_many</code> association by going through your the namespaced model:</p>
+<p>This will now allow you to access the <code>has_many</code> association by going through the namespaced model:</p>
 
 <h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
 <pre><code>
@@ -174,15 +174,40 @@ end
 &lt;td&gt;<%= pluralize post.becomes(SocialExtension::Post).likes.size, 'like' %>&lt;/td&gt;
 </pre></code>
 
+<p>Now each post shows how many likes it has received:</p>
+
+<h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
+<p>You can also add new methods in this way. Writing <code>becomes</code> each time may get cumbersome so in that case using <code>tap</code> can clean things up:</p>
+<pre><code>
+&lt;!-- insert_bottom 'tr' --&gt;
+&lt;% post.becomes(SocialExtension::Post).tap do |post| %&gt;
+  &lt;td&gt;&lt;%= link_to 'Like!', social_extension.likes_path(like: { post_id: post }), method: 'post' %&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;%= pluralize post.likes.size, 'like' %&gt;&lt;/td&gt;
+  &lt;td class='remark'&gt;&lt;%= post.well_liked? ? 'This post is well liked!' : 'This post is boring...' %&gt;&lt;/td&gt;
+&lt;% end %&gt;
+</pre></code>
+
 <h3>Stylesheets/javascripts</h3>
+
+<p>Finally let's add some styling to the extension:</p>
+
+<h4>vendor/chili/social_extension/app/assets/stylesheets/social_extension/likes.css.scss</h4>
+<pre><code>
+.remark {
+  font-weight:normal;
+  font-style:italic;
+  color:#888;
+}
+</pre></code>
 
 <p>Files added to the extension's <code>app/assets/social_extension/javascripts|stylesheets</code> directory are automatically injected into the layout using a pre-generated override:</p>
 
-<div class="highlight"><pre><span class="cp">&lt;%</span> <span class="c1"># app/overrides/layouts/application/assets.html.erb.deface </span><span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">&lt;!-- insert_bottom 'head' --&gt;</span>
-<span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span> <span class="s1">'social_extension/application'</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">'social_extension/application'</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<h4>vendor/chili/social_extension/app/overrides/layouts/application/assets.html.erb.deface</h4>
+<pre><code>
+&lt;!-- insert_bottom 'head' --&gt;
+&lt;%= stylesheet_link_tag 'social_extension/application' %&gt;
+&lt;%= javascript_include_tag 'social_extension/application' %&gt;
+</pre></code>
 
 <p>If you don't need any css/js in your extension, you can remove this file.</p>
 
