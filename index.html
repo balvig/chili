@@ -81,28 +81,47 @@ end
 
 <p>Since the extension is mounted as a gem we restart the app:</p>
 
-<h3>Define who can see the extension</h3>
+<img src="images/example.png" alt="" />
 
-<p>Use the active_if block to control whether new the extension is active for each user.
-The context of the active_if block is the application controller so you can use any methods available to that.</p>
-
-<div class="highlight"><pre><span class="c1"># lib/social_extension.rb</span>
-<span class="k">module</span> <span class="nn">SocialExtension</span>
-  <span class="kp">extend</span> <span class="no">Chili</span><span class="o">::</span><span class="no">Activatable</span>
-  <span class="n">active_if</span> <span class="p">{</span> <span class="n">logged_in?</span> <span class="o">&amp;&amp;</span> <span class="n">current_user</span><span class="o">.</span><span class="n">admin?</span> <span class="p">}</span> <span class="c1"># Extension is only visible to logged in admin users</span>
-<span class="k">end</span>
-</pre></div>
+<p>The message at the top is injected into the layout by the extension and shows us that the extension is working!</p>
 
 <h3>Modifying view templates in main app</h3>
 
-<p>Chili uses Deface to dynamically modify existing view templates (see <a href="https://github.com/railsdog/deface#using-the-deface-dsl-deface-files">Deface docs</a> for details)
-Add overrides to the <code>app/overides</code> directory mirroring the path of the view you want to modify.
-For example, assuming the main app has the partial <code>app/views/posts/_post.html.erb</code>:</p>
+<p>Chili uses Deface overrides to dynamically modify existing view templates (see <a href="https://github.com/railsdog/deface#using-the-deface-dsl-deface-files">Deface docs</a> for details).<br/>
+The message shown is an example of how this works.</p>
+<p>For now, let's remove the example override and add our own. We can start out by adding a disclaimer under the list of posts. Our current posts/index view looks something like this:</p>
 
-<div class="highlight"><pre><span class="cp">&lt;%</span> <span class="c1"># app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) </span><span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">&lt;!-- insert_bottom 'tr' --&gt;</span>
-<span class="x">&lt;td&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">'Like!'</span><span class="p">,</span> <span class="n">social_extension</span><span class="o">.</span><span class="n">likes_path</span><span class="p">(</span><span class="n">like</span><span class="p">:</span> <span class="p">{</span><span class="n">post_id</span><span class="p">:</span> <span class="n">post</span><span class="p">}),</span> <span class="nb">method</span><span class="p">:</span> <span class="ss">:post</span> <span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
-</pre></div>
+<h4>app/views/posts/index.html.erb</h4>
+<pre><code>
+&lt;table id='posts'&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  <%= render @posts %>
+&lt;/table&gt;
+</code></pre>
+
+<p>We can modify this by adding an override to the extension, mirroring the path in the main app:</p>
+
+<h4>vendor/chili/social_extension/app/overrides/posts/index/disclaimer.html.erb.deface</h4>
+<pre><code>
+&lt;!-- insert_after '#posts' --&gt;
+&lt;p class='disclaimer'&gt;Like functionality is in beta&lt;/p&gt;
+</code></pre>
+
+<h3>Define who can see the extension</h3>
+
+<p>By default a newly generated extension will be active for everyone. Let's change this so that only beta testers can see this new extension by editing the <code>active_if</code> block in <code>lib/social_extension.rb</code></p>
+
+<h4>vendor/chili/social_extension/lib/social_extension.rb</h4>
+<pre><code>
+module SocialExtension
+  extend Chili::Activatable
+  active_if { logged_in? && current_user.beta_tester? }
+end
+</pre></code>
+
+<p>The context of the active_if block is the application controller so you can use any methods available to that.</p>
 
 <h3>Adding new resources</h3>
 
