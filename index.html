@@ -20,7 +20,7 @@
       <section>
 
 <h1>Chili<span>The spicy extension framework for Rails</span></h1>
-<a href="https://github.com/balvig/chili"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/balvig/chili"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
 <p>Have you ever wanted to test out a new feature on only a subset of users?
 Did that implementation end up being lots of if/else statements embedded in the main code?
@@ -176,8 +176,11 @@ end
 
 <p>Now each post shows how many likes it has received:</p>
 
-<h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
+<img src="images/likes.png" alt="" />
+
 <p>You can also add new methods in this way. Writing <code>becomes</code> each time may get cumbersome so in that case using <code>tap</code> can clean things up:</p>
+
+<h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
 <pre><code>
 &lt;!-- insert_bottom 'tr' --&gt;
 &lt;% post.becomes(SocialExtension::Post).tap do |post| %&gt;
@@ -209,11 +212,11 @@ end
 &lt;%= javascript_include_tag 'social_extension/application' %&gt;
 </pre></code>
 
-<p>If you don't need any css/js in your extension, you can remove this file.</p>
+<p>This gives us the final result, only visible to logged in beta users:</p>
+<img src="images/final.png" alt="" />
 
-      </section>
+</section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/balvig">balvig</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
