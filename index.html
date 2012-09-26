@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Chili by balvig</title>
 
+    <!--link rel="stylesheet" href="stylesheets/pygment_trac.css"-->
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.2/styles/default.min.css">
+    <script src="http://yandex.st/highlightjs/7.2/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -14,21 +17,11 @@
   </head>
   <body>
     <div class="wrapper">
-      <header>
-        <h1>Chili</h1>
-        <p>The spicy extension framework for Rails</p>
-
-        <p class="view"><a href="https://github.com/balvig/chili">View the Project on GitHub <small>balvig/chili</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/balvig/chili/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/balvig/chili/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/balvig/chili">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
       <section>
-        <h1>Chili</h1>
+
+<h1>Chili</h1>
+<p>The spicy extension framework for Rails</p>
+<p class="view"><a href="https://github.com/balvig/chili">View the Project on GitHub</a></p>
 
 <p>Have you ever wanted to test out a new feature on only a subset of users?
 Did that implementation end up being lots of if/else statements embedded in the main code?
@@ -36,44 +29,42 @@ If so, Chili can help.</p>
 
 <p>Chili is built on top of Rails Engines and Deface and allows you to conditionally add new/modify existing views, while leaving the main code untouched.</p>
 
-<h2>Installation</h2>
-
-<p>First add Chili to your app's Gemfile:</p>
-
-<div class="highlight"><pre><span class="n">gem</span> <span class="s1">'chili'</span>
-</pre></div>
-
-<p>and run <code>bundle</code>.</p>
-
 <h2>Usage</h2>
 
-<p>The easiest way to explain how Chili works is through an example. Lets say we have a site were people can submit posts about their travel experiences:</p>
+<p>The easiest way to explain how Chili works is through an example. Lets say we have a simple site were people can submit posts about their travel experiences:</p>
 
-<p>It is hard to tell which posts are interesting so we decide to test out a new "Like" feature where users can like certain posts and see which are popular. </p>
+<img src="images/app.png" alt="" />
 
-<p>Want to test out this feature only for a set of beta testers </p>
-
+<p>It is hard to tell which posts are interesting so we decide to test out a new social feature where users can like certain posts and see which are popular. </p>
+<p>We want to first test out this feature on a set of beta testers before deciding whether to release it to everyone.</p>
 <p>One way of doing it would be something like this:</p>
 
-<div class="highlight"><pre><span class="cp">&lt;%</span> <span class="c1"># posts/_post.html.erb </span><span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">&lt;tr&gt;                                                                                                                                                                                                                                                                                                                      </span>
-<span class="x">  &lt;td&gt;</span><span class="cp">&lt;%=</span> <span class="n">post</span><span class="o">.</span><span class="n">title</span> <span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
-<span class="x">  </span><span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">logged_in?</span> <span class="o">&amp;&amp;</span> <span class="n">current_user</span><span class="o">.</span><span class="n">beta_tester?</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">    &lt;td&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">'Like!'</span><span class="p">,</span> <span class="n">likes_path</span><span class="p">(</span><span class="n">like</span><span class="p">:</span> <span class="p">{</span><span class="n">post_id</span><span class="p">:</span> <span class="n">post</span><span class="p">}),</span> <span class="nb">method</span><span class="p">:</span> <span class="ss">:post</span> <span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
-<span class="x">  </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">&lt;/tr&gt; </span>
-</pre></div>
 
-<p>However, adding conditionals in the code like this can quickly become unmaintainable as more features are added and removing them from the main code is also a pain should we decide not to release the feature after all. Also, what about the likes_controller? How do we make sure that non-beta testers can't access this?</p>
+<h4>posts/_post.html.erb</h4>
+<pre><code>
+&lt;tr&gt;
+  &lt;td&gt;<%= post.title %>&lt;/td&gt;
+  <% if logged_in? && current_user.beta_tester? %>
+    &lt;td&gt;<%= link_to 'Like!', likes_path(like: { post_id: post }), method: 'post' %>&lt;/td&gt;
+  <% end %>
+&lt;/tr&gt;
+</code></pre>
 
-<p>Chili extensions are like mini apps that are created inside your main app's vendor directory using using the "chili" generator.</p>
+<p>However, adding conditionals in the code like this can quickly become unmaintainable as more features are added. Also, what about the likes_controller? How do we make sure that non-beta testers can't access this?</p>
+<p>Lets try a cleaner approach using Chili</p>
 
 <h3>Creating a new chili extension</h3>
 
-<p>As an example, assuming you want to add a new extension named "social" that exposes a new feature in the form of a like-button
-to a subset of users, first within your main app run:</p>
+<p>First add Chili to your main app's gemfile and run bundle:</p>
 
-<pre><code>$ rails g chili:extension social
+<pre><code class='ruby'>
+gem 'chili'
+</code></pre>
+
+<p>Then generate a new extension named "social":</p>
+
+<pre><code>
+$ rails g chili:extension social
 </code></pre>
 
 <p>This will:</p>
@@ -109,7 +100,7 @@ For example, assuming the main app has the partial <code>app/views/posts/_post.h
 <h3>Adding new resources</h3>
 
 <p>Run <code>rails g scaffold Like</code> from within the extension's directory. The new resource will be namespaced to <code>SocialExtension::Like</code>
-and automounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_extension/likes</code>, 
+and automounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_extension/likes</code>,
 but will only be accessible when active_if is true.</p>
 
 <h3>Migrations</h3>
@@ -165,6 +156,6 @@ and edit it to inherit from the original:</p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
+
   </body>
 </html>
