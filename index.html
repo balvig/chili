@@ -71,8 +71,16 @@ $ rails g chili:extension social
 
 <ol>
 <li>Create the directory <code>vendor/chili/social_extension</code> containing the basic structure for the extension</li>
-<li>Add a reference to the extension to the main app gemfile</li>
-</ol><p>Since the extension is mounted as a gem you'll have to restart the app.</p>
+<li>Add a reference to the main app gemfile:</li>
+</ol>
+
+<pre><code>
+group :chili do
+  gem 'social_extension', path: 'vendor/chili/social_extension'
+end
+</pre></code>
+
+<p>Since the extension is mounted as a gem we restart the app:</p>
 
 <h3>Define who can see the extension</h3>
 
@@ -143,12 +151,6 @@ and edit it to inherit from the original:</p>
 
 <p>If you don't need any css/js in your extension, you can remove this file.</p>
 
-<h2>Gotchas</h2>
-
-<ul>
-<li>Chili will not be able to automount if you use a catch-all route in your main app (ie <code>match '*a', to: 'errors#routing'</code>), you will have to remove the catch-all or manually add the engine to the main app's routes file.</li>
-<li>Just like normal engines, Chili requires you to prepend path helpers with <code>main_app</code> (ie <code>main_app.root_path</code> etc) in view templates that are shared with the main app (such as the main app's application layout file).</li>
-</ul>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/balvig">balvig</a></p>
