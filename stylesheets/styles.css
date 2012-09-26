@@ -22,12 +22,23 @@ h1, h2, h3 {
 
 h1 {
   font-size:28px;
+  background: url('../images/chili.png') no-repeat;
+  background-size:30px;
+  padding-left:30px;
 }
 
 h1 span {
   font-size:14px;
   margin-left:4px;
 }
+
+a img {
+  width:auto;
+  border:none;
+  padding:0;
+  box-shadow:none;
+}
+
 
 h2 {
   color:#393939;
