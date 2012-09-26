@@ -85,7 +85,7 @@ end
 
 <h3>Modifying view templates in main app</h3>
 
-<p>Chili uses Deface overrides to dynamically modify existing view templates (see <a href="https://github.com/railsdog/deface#using-the-deface-dsl-deface-files">Deface docs</a> for details).<br/>
+<p>Chili uses <a href="https://github.com/railsdog/deface">Deface</a> overrides to dynamically modify existing view templates (see <a href="https://github.com/railsdog/deface#using-the-deface-dsl-deface-files">Deface docs</a> for details).<br/>
 The message shown is an example of how this works.</p>
 <p>For now, let's remove the example override and add our own. We will start out by adding a 'Like' link next to each post. Our app's <code>posts/_post</code> partial looks like this:</p>
 
@@ -96,7 +96,7 @@ The message shown is an example of how this works.</p>
 &lt;/tr&gt;
 </code></pre>
 
-<p>We can modify this at runtime by adding an override to the extension, mirroring the path in the main app:</p>
+<p>We can modify this at runtime by adding an override to the extension, mirroring the path to the partial in the main app:</p>
 
 <h4>vendor/chili/social_extension/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
 <pre><code>
@@ -110,7 +110,7 @@ The message shown is an example of how this works.</p>
 
 <h3>Define who can see the extension</h3>
 
-<p>By default a newly generated extension will be active for everyone. Let's change this so that only beta testers can see the like links by editing the <code>active_if</code> block in <code>lib/social_extension.rb</code></p>
+<p>By default a newly generated extension will be active for everyone. Let's change this so that only beta testers can see the links by editing the <code>active_if</code> block in <code>lib/social_extension.rb</code></p>
 
 <h4>vendor/chili/social_extension/lib/social_extension.rb</h4>
 <pre><code>
@@ -120,12 +120,14 @@ module SocialExtension
 end
 </pre></code>
 
-<p>Now the links will be hidden unless the a user with beta_tester flag set to true logs in.<br/>
-The context of the <code>active_if</code> block is the <em>application controller</em> so you can use any methods available to that.</p>
+<p>Now the links will be hidden unless a user with a <code>beta_tester</code> boolean set to true logs in.<br/>
+
+<p>The context of the <code>active_if</code> block is the <em>application controller</em> so you can use any methods available to that.<br />
+You could also use something like <a href="https://github.com/jamesgolick/rollout">Rollout</a> within <code>active_if</code> for more granular control</p>
 
 <h3>Adding new resources</h3>
 
-<p>The like links don't actually do anything yet. Let's add the controller and model code needed to make this work. Navigate to the extension's folder and run:</p>
+<p>The links don't actually do anything yet. Let's add the controller and model code needed to make this work. Navigate to the extension's folder and run:</p>
 
 <pre><code class='bash'>
 $ rails g scaffold Like post:references
@@ -151,7 +153,7 @@ Only when <code>active_if</code> is true is this URL available, otherwise it wil
 
 <p>We now have a working like button, only available to beta users, but it would be nice if we could also see how many likes each post has.</p>
 <p>We will need to go through the <code>Post</code> model but we don't want to add the has_many association directly to the main code.</p>
-<p>Instead we can extend the <code>Post</code> model inside the extension. Inside the extension's folder run:</p>
+<p>Instead we can extend the <code>Post</code> model inside the extension. From within the extension's folder run:</p>
 
 <pre><code class='bash'>
 $ rails g model Post --migration=false
@@ -218,7 +220,7 @@ end
 <img src="images/final.png" alt="" />
 
 
-<p>I hope you will give Chili a try and let me know of any bugs/feature requests on <a href="https://github.com/balvig/chili">GitHub</a>!<p>
+<p>Please give Chili a try and let me know of any bugs/feature requests on <a href="https://github.com/balvig/chili">GitHub</a>!<p>
 
 </section>
       <footer>
