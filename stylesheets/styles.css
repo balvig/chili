@@ -4,7 +4,7 @@ body {
   padding:50px;
   font:15px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#333;
-  font-weight:500;
+  font-weight:300;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -24,12 +24,21 @@ h1 {
   font-size:28px;
 }
 
+h1 span {
+  font-size:14px;
+  margin-left:4px;
+}
+
 h2 {
   color:#393939;
 }
 
 h3, h4, h5, h6 {
   color:#494949;
+}
+
+p {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 a {
