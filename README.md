@@ -11,6 +11,11 @@ while leaving the main code untouched.
 
 - [Walkthrough of creating and releasing a new feature with Chili](http://balvig.github.com/chili/)
 
+## Requirements
+
+- Rails 3.2+
+- Ruby 1.9.2+
+
 ## Installation
 
 First add Chili to your app's Gemfile:
