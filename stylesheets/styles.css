@@ -25,6 +25,7 @@ h1 {
   background: url('../images/chili.png') no-repeat;
   background-size:30px;
   padding-left:30px;
+  margin-bottom:15px
 }
 
 h1 span {
@@ -44,6 +45,16 @@ a img {
   margin: 0;
 }
 
+.blurb {
+  color: #595959;
+  font-size: 2.6em;
+  font-style:italic;
+  font-weight: 300;
+  line-height: 1.2em;
+  margin-bottom: 0.4em;
+  padding-top: 14px;
+  background: url("../images/divider.png") 0 0 repeat-x;
+}
 
 h3 {
   color:#393939;
@@ -144,6 +155,8 @@ strong {
 section {
   margin:0 auto;
   padding-bottom:50px;
+  border-bottom:1px solid #e5e5e5;
+  border-width:1px 0;
 }
 
 small {
@@ -190,8 +203,6 @@ img {
   }
 
   section {
-    border:1px solid #e5e5e5;
-    border-width:1px 0;
     padding:20px 0;
     margin:0 0 20px;
   }
@@ -232,6 +243,10 @@ img {
 @media print, screen and (max-width: 480px) {
   body {
     padding:15px;
+  }
+
+  .blurb {
+    font-size:2em;
   }
 
   img {
