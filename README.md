@@ -59,7 +59,7 @@ end
 
 ### Modifying view templates in main app
 
-Chili uses Deface to dynamically modify existing view templates (see [Deface docs](https://github.com/railsdog/deface#using-the-deface-dsl-deface-files) for details)
+Chili uses Deface to dynamically modify existing view templates (see [Deface docs](https://github.com/spree/deface#using-the-deface-dsl-deface-files) for details)
 Add overrides to the `app/overides` directory mirroring the path of the view you want to modify.
 For example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
 
