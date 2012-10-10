@@ -21,3 +21,4 @@ spec/dummy/example_app/vendor/chili/another_blank_extension
 spec/dummy/example_app/Gemfile
 tmp
 .DS_Store
+.pt
