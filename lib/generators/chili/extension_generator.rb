@@ -92,6 +92,15 @@ module Chili
         end
       end
 
+      def add_generators
+        create_file "lib/generators/#{extension.name}_generator.rb" do <<-RUBY
+class #{extension.name.camelcase}Generator < Rails::Generators::NamedBase
+  include Chili::Generators
+end
+        RUBY
+        end
+      end
+
       protected
 
       def extension
