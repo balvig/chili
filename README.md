@@ -71,8 +71,14 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 
 ### Adding new resources
 
-Run `rails g scaffold Like` from within the extension's directory. The new resource will be namespaced to `SocialExtension::Like`
-and automounted as an [isolated engine](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) in the main app at `/chili/social_extension/likes`, 
+You can run the usual Rails generators for each extension by prepending
+the generator with the name of the extension:
+
+```bash
+$ rails g social_extension scaffold Like
+```
+
+The new resource will be namespaced to `SocialExtension::Like` and automounted as an [isolated engine](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) in the main app at `/chili/social_extension/likes`,
 but will only be accessible when active_if is true.
 
 ### Migrations

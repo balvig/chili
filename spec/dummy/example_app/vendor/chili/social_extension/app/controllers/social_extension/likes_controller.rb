@@ -1,5 +1,5 @@
 module SocialExtension
-  class LikesController < Chili::ApplicationController
+  class LikesController < ApplicationController
 
     def index
       @likes = current_user.likes

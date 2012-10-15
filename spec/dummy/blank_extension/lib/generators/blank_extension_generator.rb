@@ -1,3 +1,3 @@
-class BlankExtensionGenerator < Rails::Generators::NamedBase
+class BlankExtensionGenerator < Rails::Generators::Base
   include Chili::GeneratorProxy
 end

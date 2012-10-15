@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 module BlankExtension ; end #Dummy engine
-class BlankExtensionGenerator < Rails::Generators::NamedBase
+class BlankExtensionGenerator < Rails::Generators::Base
   include Chili::GeneratorProxy
 end
 
 describe BlankExtensionGenerator do
   within_source_root do
-    mkdir_p 'vendor/chili/blank_extension/config'
-    touch 'vendor/chili/blank_extension/config/routes.rb'
+    FileUtils.mkdir_p 'vendor/chili/blank_extension/config'
+    FileUtils.touch 'vendor/chili/blank_extension/config/routes.rb'
   end
 
   with_args 'scaffold', 'post' do
