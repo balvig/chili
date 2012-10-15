@@ -4,6 +4,6 @@ require "chili/bundler"
 require "chili/engine"
 require "chili/extension"
 require "chili/extensions/rails/engine"
-require 'chili/generators'
 require "chili/overrides"
 require "chili/version"
+require "generators/chili/generator_proxy"

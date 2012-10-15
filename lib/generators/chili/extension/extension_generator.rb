@@ -18,7 +18,7 @@ module Chili
       end
 
       def edit_gemspec
-        require File.expand_path('../../../chili/version', __FILE__)
+        require File.expand_path('../../../../chili/version', __FILE__)
         gemspec = "#{extension.name}.gemspec"
         gsub_file gemspec, '# s.add_dependency "jquery-rails"', "s.add_dependency 'chili', '~> #{Chili::VERSION}'"
         gsub_file gemspec, 'TODO: Your name', `git config user.NAME`.chomp
@@ -92,10 +92,10 @@ module Chili
         end
       end
 
-      def add_generators
+      def add_generator_proxy
         create_file "lib/generators/#{extension.name}_generator.rb" do <<-RUBY
 class #{extension.name.camelcase}Generator < Rails::Generators::NamedBase
-  include Chili::Generators
+  include Chili::GeneratorProxy
 end
         RUBY
         end
