@@ -20,7 +20,7 @@ module Chili
       def edit_gemspec
         require File.expand_path('../../../../chili/version', __FILE__)
         gemspec = "#{extension.name}.gemspec"
-        gsub_file gemspec, '# s.add_dependency "jquery-rails"', "s.add_dependency 'chili', '~> #{Chili::VERSION}'"
+        gsub_file gemspec, '# s.add_dependency "jquery-rails"', "s.add_dependency 'chili', '~> #{Chili::VERSION.sub(/\.\d+$/,'')}'"
         gsub_file gemspec, 'TODO: Your name', `git config user.NAME`.chomp
         gsub_file gemspec, 'TODO: Your email', `git config user.email`.chomp
         gsub_file gemspec, /TODO(:\s)?/, ''
