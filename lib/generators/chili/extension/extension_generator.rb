@@ -4,7 +4,7 @@ module Chili
 
       def run_plugin_generator
         ARGV[0] = extension.path
-        ARGV[1] = "--mountable"
+        ARGV[1] = '--mountable'
         ARGV[2] = '--skip-test-unit'
         ARGV[3] = '--skip-bundle'
 
@@ -94,7 +94,7 @@ module Chili
 
       def add_generator_proxy
         create_file "lib/generators/#{extension.name}_generator.rb" do <<-RUBY
-class #{extension.name.camelcase}Generator < Rails::Generators::NamedBase
+class #{extension.name.camelcase}Generator < Rails::Generators::Base
   include Chili::GeneratorProxy
 end
         RUBY

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module BlankExtension ; end #Dummy engine
-class BlankExtensionGenerator < Rails::Generators::NamedBase
+class BlankExtensionGenerator < Rails::Generators::Base
   include Chili::GeneratorProxy
 end
 
