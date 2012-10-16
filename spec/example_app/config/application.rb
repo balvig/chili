@@ -4,8 +4,8 @@ require 'rails/all'
 
 Bundler.require
 require "chili"
-require "social_extension"
-require "invites_extension"
+require "social_feature"
+require "invites_feature"
 
 module Dummy
   class Application < Rails::Application

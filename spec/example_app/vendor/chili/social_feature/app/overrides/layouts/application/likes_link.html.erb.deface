@@ -1,0 +1,2 @@
+<!-- insert_after '.user' -->
+<%= link_to 'See Your Likes', social_feature.likes_path %>

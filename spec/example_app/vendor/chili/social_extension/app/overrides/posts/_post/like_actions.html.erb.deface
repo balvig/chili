@@ -1,6 +1,0 @@
-<!-- insert_bottom 'tr' -->
-<% post.becomes(SocialExtension::Post).tap do |post| %>
-  <td><%= link_to 'Like!', social_extension.likes_path(like: {post_id: post}), method: :post %></td>
-  <td><%= pluralize post.likes.size, 'like' %></td>
-  <td class='remark'><%= post.well_liked? ? 'This post is well liked!' : 'This post is boring...' %></td>
-<% end %>

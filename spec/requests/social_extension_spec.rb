@@ -16,19 +16,19 @@ feature 'View overrides' do
 end
 
 feature 'Togglable controllers' do
-  scenario 'when user is not admin active_if hides extension controller' do
+  scenario 'when user is not admin active_if hides controllers in feature' do
     login User.create!
-    expect { visit('/chili/social_extension/likes') }.to raise_error(ActionController::RoutingError)
+    expect { visit('/chili/social_feature/likes') }.to raise_error(ActionController::RoutingError)
   end
 
-  scenario 'when admin active_if makes extension controller available' do
+  scenario 'when admin active_if makes controllers available' do
     login User.create!(admin: true)
-    visit('/chili/social_extension/likes')
+    visit('/chili/social_feature/likes')
     page.should have_content('Your Likes')
   end
 end
 
-feature 'Multiple chili extensions' do
+feature 'Multiple chili features' do
   scenario 'multiple overrides do not redefine each other' do
     login User.create!(admin: true)
     visit('/posts')

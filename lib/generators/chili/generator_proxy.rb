@@ -12,7 +12,7 @@ module Chili
         def delegate
           engine = self.class.generator_name.classify.constantize
           Rails::Generators.namespace = engine
-          Rails::Generators.invoke ARGV.shift, ARGV, destination_root: Extension.new(engine).path, behavior: behavior
+          Rails::Generators.invoke ARGV.shift, ARGV, destination_root: Feature.new(engine).path, behavior: behavior
         end
       end
     end

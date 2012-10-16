@@ -1,10 +1,10 @@
 module Chili
   class ApplicationController  < ::ApplicationController
-    before_filter :activate_extension
+    before_filter :activate_feature
 
     private
-    def activate_extension
-      raise ActionController::RoutingError, 'Extension Disabled' unless self.class.parent.active?(self)
+    def activate_feature
+      raise ActionController::RoutingError, 'Feature Disabled' unless self.class.parent.active?(self)
     end
   end
 end
