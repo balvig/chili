@@ -1,0 +1,3 @@
+<!-- insert_bottom 'head' -->
+<%= stylesheet_link_tag 'another_blank_extension/application' %>
+<%= javascript_include_tag 'another_blank_extension/application' %>

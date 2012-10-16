@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rails/generators'
 
 module BlankExtension ; end #Dummy engine
 class BlankExtensionGenerator < Rails::Generators::Base
@@ -6,16 +7,18 @@ class BlankExtensionGenerator < Rails::Generators::Base
 end
 
 describe BlankExtensionGenerator do
-  within_source_root do
-    FileUtils.mkdir_p 'vendor/chili/blank_extension/config'
-    FileUtils.touch 'vendor/chili/blank_extension/config/routes.rb'
-  end
-
-  #TODO: Want to write spec testing options but some rspec and command line treats ARGV differently...
-  with_args(ARGV = %w{ scaffold post }) do
-    it "runs the scaffold controller namespaced within the extension" do
-      subject.should generate("vendor/chili/blank_extension/app/assets/stylesheets/blank_extension/posts.css")
+  context 'given no options' do
+    before do
+      ARGV.clear
+      ARGV << 'scaffold'
+      ARGV << 'post'
     end
+
+    it "works" do
+      binding.pry
+      #BlankExtensionGenerator.start#(ARGV, destination_root: '/tmp')
+    end
+
   end
 
 end

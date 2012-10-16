@@ -4,7 +4,6 @@ module Chili
       base.class_eval do
         argument :generator, type: :string
         argument :generator_options, type: :array, default: [], banner: "GENERATOR_OPTIONS"
-        remove_class_option :skip_namespace
 
         def self.desc
           "Generates resources (scaffold, model, migration etc) for #{generator_name}"
