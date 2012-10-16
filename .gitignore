@@ -17,6 +17,7 @@ spec/example_app/log/*.log
 spec/example_app/tmp/
 spec/example_app/.sass-cache
 spec/dummy/app/Gemfile
+spec/dummy/app/log/
 spec/dummy/app/vendor/
 tmp
 .DS_Store
