@@ -128,11 +128,11 @@ You could also use something like <a href="https://github.com/jamesgolick/rollou
 
 <h3>Adding new resources</h3>
 
-<p>The links don't actually do anything yet. Let's add the controller and model code needed to make this work.</p>
-<p>Navigate to the <em>feature's folder</em> and run:</p>
+<p>The links don't actually do anything yet. Let's add the controller and model code needed to make this work.<br/>
+You can use all the typical Rails generators for Chili features by prepending the generator with the name of the feature:</p>
 
 <pre><code class='bash'>
-$ rails g scaffold Like post:references
+$ rails g social_feature scaffold Like post:references
 $ rake social_feature:install:migrations
 $ rake db:migrate
 </code></pre>
@@ -155,10 +155,10 @@ Only when <code>active_if</code> is true is this URL available, otherwise it wil
 
 <p>We now have a working like button, only available to beta users, but it would be nice if we could also see how many likes each post has.</p>
 <p>We will need to go through the <code>Post</code> model but we don't want to add the has_many association directly to the main code.</p>
-<p>Instead we can extend the <code>Post</code> model inside the feature. From within the feature's folder run:</p>
+<p>Instead we can extend the <code>Post</code> model inside the feature. Run:</p>
 
 <pre><code class='bash'>
-$ rails g model Post --migration=false
+$ rails g social_feature model Post --migration=false
 </pre></code>
 
 <p>Edit the generated file to make it inherit from the original <code>Post</code> model and add the association:</p>
