@@ -50,7 +50,7 @@ Use the active_if block to control whether new the feature is active for each us
 The context of the active_if block is the application controller so you can use any methods available to that.
 
 ```ruby
-# lib/social_feature.rb
+# {feature}/lib/social_feature.rb
 module SocialFeature
   extend Chili::Activatable
   active_if { logged_in? && current_user.admin? } # Feature is only visible to logged in admin users
@@ -64,7 +64,7 @@ Add overrides to the `app/overides` directory mirroring the path of the view you
 For example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
 
 ```erb
-<% # app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) %>
+<% # {feature}/app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) %>
 <!-- insert_bottom 'tr' -->
 <td><%= link_to 'Like!', social_feature.likes_path(like: {post_id: post}), method: :post %></td>
 ```
@@ -94,7 +94,7 @@ following commands after you've added a new migration to a feature:
 Create a model with the same name as the one you want to modify by running: `rails g social_feature model User --migration=false` and edit it to inherit from the original:
 
 ```ruby
-# app/models/social_feature/user.rb
+# {feature}/app/models/social_feature/user.rb
 module SocialFeature
   class User < ::User
     has_many :likes
@@ -114,7 +114,7 @@ Access in your overrides/feature views through the namespaced model:
 Files added to the feature's `app/assets/social_feature/javascripts|stylesheets` directory are automatically injected into the layout using a pre-generated override:
 
 ```erb
-<% # app/overrides/layouts/application/assets.html.erb.deface %>
+<% # {feature}/app/overrides/layouts/application/assets.html.erb.deface %>
 <!-- insert_bottom 'head' -->
 <%= stylesheet_link_tag 'social_feature/application' %>
 <%= javascript_include_tag 'social_feature/application' %>
