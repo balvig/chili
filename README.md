@@ -28,32 +28,32 @@ and run `bundle`.
 
 ## Usage
 
-Chili extensions are like mini apps that are created inside your main app's vendor directory using using the "chili" generator.
+Chili features are like mini apps that are created inside your main app's vendor directory using using the "chili" generator.
 
-### Creating a new chili extension
+### Creating a new chili feature
 
-As an example, assuming you want to add a new extension named "social" that exposes a new feature in the form of a like-button
+As an example, assuming you want to add a beta feature named "social" that shows a new like-button
 to a subset of users, first within your main app run:
 
-    $ rails g chili:extension social
+    $ rails g chili:feature social
 
 This will:
 
-1. Create the directory `vendor/chili/social_extension` containing the basic structure for the extension
-2. Add a reference to the extension to the main app gemfile
+1. Create the directory `vendor/chili/social_feature` containing the basic structure for the feature
+2. Add a reference to the feature to the main app gemfile
 
-Since the extension is mounted as a gem you'll have to restart the app.
+Since the feature is mounted as a gem you'll have to restart the app.
 
-### Define who can see the extension
+### Define who can see the feature
 
-Use the active_if block to control whether new the extension is active for each user.
+Use the active_if block to control whether new the feature is active for each user.
 The context of the active_if block is the application controller so you can use any methods available to that.
 
 ```ruby
-# lib/social_extension.rb
-module SocialExtension
+# lib/social_feature.rb
+module SocialFeature
   extend Chili::Activatable
-  active_if { logged_in? && current_user.admin? } # Extension is only visible to logged in admin users
+  active_if { logged_in? && current_user.admin? } # Feature is only visible to logged in admin users
 end
 ```
 
@@ -66,62 +66,61 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 ```erb
 <% # app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) %>
 <!-- insert_bottom 'tr' -->
-<td><%= link_to 'Like!', social_extension.likes_path(like: {post_id: post}), method: :post %></td>
+<td><%= link_to 'Like!', social_feature.likes_path(like: {post_id: post}), method: :post %></td>
 ```
 
 ### Adding new resources
 
-You can run the usual Rails generators for each extension by prepending
-the generator with the name of the extension:
+You can run the usual Rails generators for each feature by prepending
+the generator with the name of the feature:
 
 ```bash
-$ rails g social_extension scaffold Like
+$ rails g social_feature scaffold Like
 ```
 
-The new resource will be namespaced to `SocialExtension::Like` and automounted as an [isolated engine](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) in the main app at `/chili/social_extension/likes`,
+The new resource will be namespaced to `SocialFeature::Like` and automounted as an [isolated engine](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) in the main app at `/chili/social_feature/likes`,
 but will only be accessible when active_if is true.
 
 ### Migrations
 
 Migrations are handled the same way as engines. Use the
-following commands after you've added a new migration to your extension:
+following commands after you've added a new migration to your feature:
 
-    $ rake social_extension:migrations:install
+    $ rake social_feature:migrations:install
     $ rake db:migrate
 
 ### Modifying existing models
 
-Create a model with the same name as the one you want to modify by running: `rails g model User --migration=false` inside your extension's directory
-and edit it to inherit from the original:
+Create a model with the same name as the one you want to modify by running: `rails g social_feature model User --migration=false` and edit it to inherit from the original:
 
 ```ruby
-# app/models/social_extension/user.rb
-module SocialExtension
+# app/models/social_feature/user.rb
+module SocialFeature
   class User < ::User
     has_many :likes
   end
 end
 ```
 
-Access in your overrides/extension views through the namespaced model:
+Access in your overrides/feature views through the namespaced model:
 
 ```erb
-<%= SocialExtension::User.first.likes %>
-<%= current_user.becomes(SocialExtension::User).likes %>
+<%= SocialFeature::User.first.likes %>
+<%= current_user.becomes(SocialFeature::User).likes %>
 ```
 
 ### Stylesheets/javascripts
 
-Files added to the extension's `app/assets/social_extension/javascripts|stylesheets` directory are automatically injected into the layout using a pre-generated override:
+Files added to the feature's `app/assets/social_feature/javascripts|stylesheets` directory are automatically injected into the layout using a pre-generated override:
 
 ```erb
 <% # app/overrides/layouts/application/assets.html.erb.deface %>
 <!-- insert_bottom 'head' -->
-<%= stylesheet_link_tag 'social_extension/application' %>
-<%= javascript_include_tag 'social_extension/application' %>
+<%= stylesheet_link_tag 'social_feature/application' %>
+<%= javascript_include_tag 'social_feature/application' %>
 ```
 
-If you don't need any css/js in your extension, you can remove this file.
+If you don't need any css/js in your feature, you can remove this file.
 
 ## Gotchas
 
