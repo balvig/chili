@@ -1,8 +1,8 @@
 Description:
-    Generate a new chili extension
+    Generate a new chili feature
 
 Example:
-    rails generate chili:extension social
+    rails generate chili:feature social
 
     This will create:
-        basic extension structure in vendor/chili/social_extension
+        basic chili feature structure in vendor/chili/social_feature

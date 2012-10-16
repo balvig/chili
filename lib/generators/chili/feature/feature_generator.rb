@@ -37,6 +37,7 @@ module Chili
       def remove_unused_files
         remove_dir "app/helpers/#{feature.name}"
         remove_dir 'app/views/layouts'
+        remove_dir 'script'
         remove_file 'Gemfile'
         remove_file 'Rakefile'
       end
