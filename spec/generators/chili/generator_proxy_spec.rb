@@ -12,16 +12,16 @@ describe Chili::GeneratorProxy do
   context 'running generator from a newly created feature' do
     it "generates resources properly" do
       puts `cd #{app.path} && rails g blank_feature scaffold post`
-      File.exist?(File.join(app.path, 'vendor/chili/blank_feature/app/controllers/blank_feature/posts_controller.rb')).should be_true
-      File.exist?(File.join(app.path, 'vendor/chili/blank_feature/app/assets/stylesheets/blank_feature/posts.css')).should be_true
+      File.exist?(File.join(app.path, 'lib/chili/blank_feature/app/controllers/blank_feature/posts_controller.rb')).should be_true
+      File.exist?(File.join(app.path, 'lib/chili/blank_feature/app/assets/stylesheets/blank_feature/posts.css')).should be_true
     end
   end
 
   context 'passing in options' do
     it "passes options on to rails generator" do
       puts `cd #{app.path} && rails g blank_feature scaffold post --stylesheets=false`
-      File.exist?(File.join(app.path, 'vendor/chili/blank_feature/app/controllers/blank_feature/posts_controller.rb')).should be_true
-      File.exist?(File.join(app.path, 'vendor/chili/blank_feature/app/assets/stylesheets/blank_feature/posts.css')).should be_false
+      File.exist?(File.join(app.path, 'lib/chili/blank_feature/app/controllers/blank_feature/posts_controller.rb')).should be_true
+      File.exist?(File.join(app.path, 'lib/chili/blank_feature/app/assets/stylesheets/blank_feature/posts.css')).should be_false
     end
   end
 

@@ -28,7 +28,7 @@ and run `bundle`.
 
 ## Usage
 
-Chili features are like mini apps that are created inside your main app's vendor directory using using the "chili" generator.
+Chili features are like mini apps that are created inside your main app's lib/chili directory using using the "chili" generator.
 
 ### Creating a new chili feature
 
@@ -39,7 +39,7 @@ to a subset of users, first within your main app run:
 
 This will:
 
-1. Create the directory `vendor/chili/social_feature` containing the basic structure for the feature
+1. Create the directory `lib/chili/social_feature` containing the basic structure for the feature
 2. Add a reference to the feature to the main app gemfile
 
 Since the feature is mounted as a gem you'll have to restart the app.
@@ -84,7 +84,7 @@ but will only be accessible when active_if is true.
 ### Migrations
 
 Migrations are handled the same way as engines. Use the
-following commands after you've added a new migration to your feature:
+following commands after you've added a new migration to a feature:
 
     $ rake social_feature:migrations:install
     $ rake db:migrate

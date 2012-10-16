@@ -9,7 +9,7 @@ module Chili
     end
 
     def path
-      "vendor/chili/#{name}"
+      "lib/chili/#{name}"
     end
   end
 end
