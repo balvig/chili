@@ -1,13 +1,11 @@
 require 'spec_helper'
 
-describe 'ChiliGenerator' do
-  describe 'rails g chili EXTENSION_NAME' do
+describe 'ExtensionGenerator' do
+  describe 'rails g chili:extension NAME' do
     let(:app) { DummyApp.new }
     let(:template_path) { File.expand_path("../../../dummy/blank_extension", __FILE__) }
 
-    before do
-      app.setup!
-    end
+    before { app.setup! }
 
     it 'creates a new extension with a correct file structure and appends it to the gemfile' do
       puts `cd #{app.path} && rails g chili:extension blank`

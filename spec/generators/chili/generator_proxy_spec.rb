@@ -1,24 +1,28 @@
 require 'spec_helper'
-require 'rails/generators'
 
-module BlankExtension ; end #Dummy engine
-class BlankExtensionGenerator < Rails::Generators::Base
-  include Chili::GeneratorProxy
-end
+describe Chili::GeneratorProxy do
+  let(:app) { DummyApp.new }
 
-describe BlankExtensionGenerator do
-  context 'given no options' do
-    before do
-      ARGV.clear
-      ARGV << 'scaffold'
-      ARGV << 'post'
+  before do
+    app.setup!
+    puts `cd #{app.path} && rails g chili:extension blank`
+  end
+
+
+  context 'running generator from a newly created extension' do
+    it "generates resources properly" do
+      puts `cd #{app.path} && rails g blank_extension scaffold post`
+      File.exist?(File.join(app.path, 'vendor/chili/blank_extension/app/controllers/blank_extension/posts_controller.rb')).should be_true
+      File.exist?(File.join(app.path, 'vendor/chili/blank_extension/app/assets/stylesheets/blank_extension/posts.css')).should be_true
     end
+  end
 
-    it "works" do
-      binding.pry
-      #BlankExtensionGenerator.start#(ARGV, destination_root: '/tmp')
+  context 'passing in options' do
+    it "passes options on to rails generator" do
+      puts `cd #{app.path} && rails g blank_extension scaffold post --stylesheets=false`
+      File.exist?(File.join(app.path, 'vendor/chili/blank_extension/app/controllers/blank_extension/posts_controller.rb')).should be_true
+      File.exist?(File.join(app.path, 'vendor/chili/blank_extension/app/assets/stylesheets/blank_extension/posts.css')).should be_false
     end
-
   end
 
 end
