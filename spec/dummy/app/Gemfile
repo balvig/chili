@@ -1,7 +1,0 @@
-group :development do
-  gem 'somegem'
-end
-group :chili do
-  gem 'another_blank_extension', path: 'vendor/chili/another_blank_extension'
-  gem 'blank_extension', path: 'vendor/chili/blank_extension'
-end

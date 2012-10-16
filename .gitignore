@@ -16,8 +16,8 @@ spec/example_app/db/*.sqlite3
 spec/example_app/log/*.log
 spec/example_app/tmp/
 spec/example_app/.sass-cache
+spec/dummy/app/Gemfile
 spec/dummy/app/vendor/
-spec/dummy/app/Gemfile/
 tmp
 .DS_Store
 .pt
