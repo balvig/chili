@@ -9,7 +9,7 @@ module Chili
     end
 
     def path
-      "lib/chili/#{name}"
+      "#{FEATURE_FOLDER}/#{name}"
     end
   end
 end
