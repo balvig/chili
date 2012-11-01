@@ -86,7 +86,7 @@ but will only be accessible when active_if is true.
 Migrations are handled the same way as engines. Use the
 following commands after you've added a new migration to a feature:
 
-    $ rake social_feature:migrations:install
+    $ rake social_feature:install:migrations
     $ rake db:migrate
 
 ### Modifying existing models
