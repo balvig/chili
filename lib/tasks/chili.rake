@@ -4,7 +4,7 @@
     Rake::Task[test_lib].clear
     chili_specs = "#{Chili::FEATURE_FOLDER}/**/#{test_lib}/**/*_#{test_lib}.rb"
 
-    task = rake_task.constantize.new(test_lib)
+    task = rake_task.constantize.new(test_lib => 'test:prepare')
     task.pattern = [task.pattern, chili_specs]
 
     namespace test_lib do
