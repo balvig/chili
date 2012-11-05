@@ -40,6 +40,7 @@ module Chili
         remove_dir 'script'
         remove_file 'Gemfile'
         remove_file 'Rakefile'
+        remove_file 'MIT-LICENSE'
       end
 
       def remove_jquery_stuff
