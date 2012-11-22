@@ -83,11 +83,9 @@ but will only be accessible when active_if is true.
 
 ### Migrations
 
-Migrations are handled the same way as engines. Use the
-following commands after you've added a new migration to a feature:
+To copy and run feature db migrations use the following command:
 
-    $ rake social_feature:install:migrations
-    $ rake db:migrate
+    $ rake social_feature:db:migrate
 
 ### Modifying existing models
 
