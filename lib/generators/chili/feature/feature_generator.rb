@@ -64,9 +64,9 @@ module Chili
         prepend_to_file "lib/#{feature.name}.rb", "require \"chili\"\n"
       end
 
-      def include_active_if
+      def include_base_and_active_if
         inject_into_file "lib/#{feature.name}.rb", after: "module #{feature.name.camelcase}\n" do <<-RUBY
-  extend Chili::Activatable
+  extend Chili::Base
   active_if { true } # edit this to activate/deactivate feature at runtime
         RUBY
         end
