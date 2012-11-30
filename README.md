@@ -52,7 +52,7 @@ The context of the active_if block is the application controller so you can use 
 ```ruby
 # {feature}/lib/social_feature.rb
 module SocialFeature
-  extend Chili::Activatable
+  extend Chili::Base
   active_if { logged_in? && current_user.admin? } # Feature is only visible to logged in admin users
 end
 ```
