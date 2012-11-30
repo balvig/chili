@@ -116,7 +116,7 @@ The message shown is an example of how this works.</p>
 <h4>lib/chili/social_feature/lib/social_feature.rb</h4>
 <pre><code>
 module SocialFeature
-  extend Chili::Activatable
+  extend Chili::Base
   active_if { logged_in? && current_user.beta_tester? }
 end
 </pre></code>
@@ -133,8 +133,7 @@ You can use all the typical Rails generators for Chili features by prepending th
 
 <pre><code class='bash'>
 $ rails g social_feature scaffold Like post:references
-$ rake social_feature:install:migrations
-$ rake db:migrate
+$ rake social_feature:db:migrate
 </code></pre>
 
 <p>The new resource will be automatically mounted as an <a href="http://railscasts.com/episodes/277-mountable-engines?view=asciicast">isolated engine</a> in the main app at <code>/chili/social_feature/likes</code>.
