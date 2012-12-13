@@ -39,7 +39,7 @@ to a subset of users, first within your main app run:
 
 This will:
 
-1. Create the directory `lib/chili/social_feature` containing the basic structure for the feature
+1. Create the directory `lib/chili/social` containing the basic structure for the feature
 2. Add a reference to the feature to the main app gemfile
 
 Since the feature is mounted as a gem you'll have to restart the app.
@@ -50,8 +50,8 @@ Use the active_if block to control whether new the feature is active for each us
 The context of the active_if block is the application controller so you can use any methods available to that.
 
 ```ruby
-# {feature}/lib/social_feature.rb
-module SocialFeature
+# {feature}/lib/social.rb
+module Social
   extend Chili::Base
   active_if { logged_in? && current_user.admin? } # Feature is only visible to logged in admin users
 end
@@ -66,7 +66,7 @@ For example, assuming the main app has the partial `app/views/posts/_post.html.e
 ```erb
 <% # {feature}/app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) %>
 <!-- insert_bottom 'tr' -->
-<td><%= link_to 'Like!', social_feature.likes_path(like: {post_id: post}), method: :post %></td>
+<td><%= link_to 'Like!', social.likes_path(like: {post_id: post}), method: :post %></td>
 ```
 
 ### Adding new resources
@@ -75,25 +75,25 @@ You can run the usual Rails generators for each feature by prepending
 the generator with the name of the feature:
 
 ```bash
-$ rails g social_feature scaffold Like
+$ rails g social scaffold Like
 ```
 
-The new resource will be namespaced to `SocialFeature::Like` and automounted as an [isolated engine](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) in the main app at `/chili/social_feature/likes`,
+The new resource will be namespaced to `Social::Like` and automounted as an [isolated engine](http://railscasts.com/episodes/277-mountable-engines?view=asciicast) in the main app at `/chili/social_feature/likes`,
 but will only be accessible when active_if is true.
 
 ### Migrations
 
 To copy and run feature db migrations use the following command:
 
-    $ rake social_feature:db:migrate
+    $ rake social:db:migrate
 
 ### Modifying existing models
 
-Create a model with the same name as the one you want to modify by running: `rails g social_feature model User --migration=false` and edit it to inherit from the original:
+Create a model with the same name as the one you want to modify by running: `rails g social model User --migration=false` and edit it to inherit from the original:
 
 ```ruby
-# {feature}/app/models/social_feature/user.rb
-module SocialFeature
+# {feature}/app/models/social/user.rb
+module Social
   class User < ::User
     has_many :likes
   end
@@ -103,19 +103,19 @@ end
 Access in your overrides/feature views through the namespaced model:
 
 ```erb
-<%= SocialFeature::User.first.likes %>
-<%= current_user.becomes(SocialFeature::User).likes %>
+<%= Social::User.first.likes %>
+<%= current_user.becomes(Social::User).likes %>
 ```
 
 ### Stylesheets/javascripts
 
-Files added to the feature's `app/assets/social_feature/javascripts|stylesheets` directory are automatically injected into the layout using a pre-generated override:
+Files added to the feature's `app/assets/social/javascripts|stylesheets` directory are automatically injected into the layout using a pre-generated override:
 
 ```erb
 <% # {feature}/app/overrides/layouts/application/assets.html.erb.deface %>
 <!-- insert_bottom 'head' -->
-<%= stylesheet_link_tag 'social_feature/application' %>
-<%= javascript_include_tag 'social_feature/application' %>
+<%= stylesheet_link_tag 'social/application' %>
+<%= javascript_include_tag 'social/application' %>
 ```
 
 If you don't need any css/js in your feature, you can remove this file.
