@@ -5,7 +5,7 @@ describe Chili::GeneratorProxy do
 
   before do
     app.setup!
-    puts `cd #{app.path} && rails g chili:feature blank`
+    puts `cd #{app.path} && rails g chili:feature blank_feature`
   end
 
 

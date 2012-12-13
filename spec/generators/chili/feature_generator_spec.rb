@@ -8,7 +8,7 @@ describe 'FeatureGenerator' do
     before { app.setup! }
 
     it 'creates a new feature with a correct file structure and appends it to the gemfile' do
-      puts `cd #{app.path} && rails g chili:feature blank`
+      puts `cd #{app.path} && rails g chili:feature blank_feature`
 
       Dir.glob(File.join(template_path, "**/*")).reject { |f| File.directory?(f) }.each do |template|
         result = File.join(app.path, 'lib/chili/blank_feature', template.sub(template_path, ''))
@@ -21,14 +21,14 @@ describe 'FeatureGenerator' do
     end
 
     it "appends new features to the chili group within the gemfile" do
-      puts `cd #{app.path} && rails g chili:feature blank`
+      puts `cd #{app.path} && rails g chili:feature blank_feature`
       File.open(app.gemfile, 'rb').read.should include <<-RUBY.chomp
 group :chili do
   gem 'blank_feature', path: 'lib/chili/blank_feature'
 end
     RUBY
 
-      puts `cd #{app.path} && rails g chili:feature another_blank`
+      puts `cd #{app.path} && rails g chili:feature another_blank_feature`
       File.open(app.gemfile, 'rb').read.should include <<-RUBY.chomp
 group :chili do
   gem 'another_blank_feature', path: 'lib/chili/another_blank_feature'

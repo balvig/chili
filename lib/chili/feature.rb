@@ -1,11 +1,8 @@
 module Chili
   class Feature
-    def initialize(short_name)
-      @short_name = short_name
-    end
-
-    def name
-      @short_name.to_s.underscore.gsub('_feature','') + '_feature'
+    attr_reader :name
+    def initialize(name)
+      @name = name.to_s.underscore
     end
 
     def path
