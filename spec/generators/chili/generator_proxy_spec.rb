@@ -19,8 +19,8 @@ describe Chili::GeneratorProxy do
 
   context 'running deface override generator' do
     it "generates namespaced override properly" do
-      puts `cd #{app.path} && rails g deface:override posts/index add_links`
-      File.exist?(File.join(app.path, 'app/overrides/posts/index/add_links.html.erb.deface')).should be_true
+      puts `cd #{app.path} && rails g blank_feature deface:override posts/index add_links`
+      File.exist?(File.join(app.path, 'lib/chili/blank_feature/app/overrides/posts/index/add_links.html.erb.deface')).should be_true
     end
   end
 

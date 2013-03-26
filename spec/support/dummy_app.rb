@@ -9,7 +9,6 @@ class DummyApp
 
   def setup!
     FileUtils.rm_rf File.join(path, 'lib')
-    FileUtils.rm_rf File.join(path, 'app', 'overrides')
     FileUtils.rm_rf gemfile
     File.open(gemfile, 'w') do |f|
       f.write <<-RUBY
