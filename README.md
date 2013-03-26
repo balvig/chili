@@ -35,7 +35,9 @@ Chili features are like mini apps that are created inside your main app's lib/ch
 As an example, assuming you want to add a beta feature named "social" that shows a new like-button
 to a subset of users, first within your main app run:
 
-    $ rails g chili:feature social
+```bash
+$ rails g chili:feature social
+```
 
 This will:
 
@@ -60,11 +62,17 @@ end
 ### Modifying view templates in main app
 
 Chili uses Deface to dynamically modify existing view templates (see [Deface docs](https://github.com/spree/deface#using-the-deface-dsl-deface-files) for details)
-Add overrides to the `app/overides` directory mirroring the path of the view you want to modify.
-For example, assuming the main app has the partial `app/views/posts/_post.html.erb`:
+To generate an override to the feature, run the deface generator specifying the name of the feature and path to the template you want to modify.
+For example, assuming the main app has the partial `app/views/posts/_post.html.erb` run:
+
+```bash
+$ rails g social_feature deface:override posts/_post like_button
+```
+
+This will create a dummy override at `{feature}/app/overrides/posts/_post/like_button.html.erb.deface` that you can edit:
 
 ```erb
-<% # {feature}/app/overrides/posts/_post/like_button.html.erb.deface (folder should mirror main app view path) %>
+<% # {feature}/app/overrides/posts/_post/like_button.html.erb.deface %>
 <!-- insert_bottom 'tr' -->
 <td><%= link_to 'Like!', social_feature.likes_path(like: {post_id: post}), method: :post %></td>
 ```
@@ -85,7 +93,9 @@ but will only be accessible when active_if is true.
 
 To copy and run feature db migrations use the following command:
 
-    $ rake social_feature:db:migrate
+```bash
+$ rake social_feature:db:migrate
+```
 
 ### Modifying existing models
 
