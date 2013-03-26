@@ -97,7 +97,15 @@ The message shown is an example of how this works.</p>
 &lt;/tr&gt;
 </code></pre>
 
-<p>We can modify this at runtime by adding an override to the feature, mirroring the path to the partial in the main app:</p>
+<p>We can modify this at runtime by adding an override to the feature,
+using a generator:</p>
+
+<pre><code class='bash'>
+$ rails g social_feature deface:override posts/_post like_actions
+</code></pre>
+
+<p>This will create a dummy override for the <code>posts/_post</code> partial that we
+can modify:</p>
 
 <h4>lib/chili/social_feature/app/overrides/posts/_post/like_actions.html.erb.deface</h4>
 <pre><code>
