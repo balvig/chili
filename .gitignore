@@ -19,6 +19,7 @@ spec/example_app/.sass-cache
 spec/dummy/app/Gemfile
 spec/dummy/app/log/
 spec/dummy/app/lib/
+spec/dummy/app/app/overrides/
 tmp
 .DS_Store
 .pt

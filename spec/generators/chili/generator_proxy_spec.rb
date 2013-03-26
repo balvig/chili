@@ -17,6 +17,13 @@ describe Chili::GeneratorProxy do
     end
   end
 
+  context 'running deface override generator' do
+    it "generates namespaced override properly" do
+      puts `cd #{app.path} && rails g deface:override posts/index add_links`
+      File.exist?(File.join(app.path, 'app/overrides/posts/index/add_links.html.erb.deface')).should be_true
+    end
+  end
+
   context 'passing in options' do
     it "passes options on to rails generator" do
       puts `cd #{app.path} && rails g blank_feature scaffold post --stylesheets=false`
