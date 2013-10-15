@@ -15,13 +15,14 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Chili::VERSION
 
-  gem.add_dependency "rails", "~> 3.2"
-  gem.add_dependency "deface", "~> 1.0.0.rc2"
+  gem.add_dependency "rails", ">= 3.2"
+  gem.add_dependency "deface", "~> 1.0.0"
 
-  gem.add_development_dependency 'rspec', '~> 2.12.0'
-  gem.add_development_dependency 'rspec-rails', '~> 2.12.0'
+  gem.add_development_dependency 'rspec', '~> 2.14.0'
+  gem.add_development_dependency 'rspec-rails', '~> 2.14.0'
   gem.add_development_dependency 'jquery-rails'
   gem.add_development_dependency 'capybara', '~> 2.0'
   gem.add_development_dependency 'xpath'
   gem.add_development_dependency 'sqlite3'
+  gem.add_development_dependency 'pry'
 end

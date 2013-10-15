@@ -16,5 +16,9 @@ module SocialFeature
       super.becomes(SocialFeature::User)
     end
 
+    def like_params
+      params.require(:like).permit(:post_id)
+    end
+
   end
 end
