@@ -1,4 +1,4 @@
-# Chili [![Build Status](https://secure.travis-ci.org/balvig/chili.png?branch=master)](http://travis-ci.org/balvig/chili)
+# Chili [![Build Status](https://travis-ci.org/balvig/chili.svg?branch=master)](http://travis-ci.org/balvig/chili)
 
 Have you ever wanted to test out a new feature on only a subset of users?
 Did that implementation end up being lots of if/else statements embedded in the main code?
@@ -13,7 +13,7 @@ while leaving the main code untouched.
 
 ## Requirements
 
-- Rails 3.2+
+- Rails 4.1+
 - Ruby 1.9.2+
 
 ## Installation
