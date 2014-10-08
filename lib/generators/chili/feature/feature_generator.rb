@@ -9,8 +9,8 @@ module Chili
         ARGV[3] = '--skip-bundle'
 
         require 'rails/generators'
-        require 'rails/generators/rails/plugin_new/plugin_new_generator'
-        Rails::Generators::PluginNewGenerator.start
+        require 'rails/generators/rails/plugin/plugin_generator'
+        Rails::Generators::PluginGenerator.start
       end
 
       def reset_destination_root
