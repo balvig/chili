@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Chili::VERSION
 
-  gem.add_dependency "rails", ">= 3.2"
+  gem.add_dependency "rails", ">= 4.1"
   gem.add_dependency "deface", "~> 1.0.0"
 
   gem.add_development_dependency 'rspec', '~> 2.14.0'
