@@ -9,7 +9,7 @@ while leaving the main code untouched.
 
 ## Tutorial & Examples
 
-- [Walkthrough of creating and releasing a new feature with Chili](http://balvig.github.com/chili/)
+- [Walkthrough of creating and releasing a new feature with Chili](https://balvig.github.io/chili/)
 
 ## Requirements
 
