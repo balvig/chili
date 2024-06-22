@@ -34,7 +34,7 @@ h1 span {
 }
 
 a img {
-  width:auto;
+  width:140px;
   border:none;
   padding:0;
   box-shadow:none;
@@ -113,6 +113,7 @@ pre code {
   padding:0;
   background:none;
   margin: -10px 0 6px;
+  display: block;
 }
 
 pre {
