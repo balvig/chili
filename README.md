@@ -1,4 +1,4 @@
-# Chili [![Build Status](https://travis-ci.org/balvig/chili.svg?branch=master)](http://travis-ci.org/balvig/chili)
+# 🌶️ Chili
 
 Have you ever wanted to test out a new feature on only a subset of users?
 Did that implementation end up being lots of if/else statements embedded in the main code?
